@@ -1,5 +1,6 @@
 
 "use client"; // required for client-side hooks in app/ directory
+
 import React, { useState, useRef } from "react";
 import UseCase from "@/components/UseCase";
 import { getImage } from "../utils/getImage";
