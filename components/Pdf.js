@@ -1,4 +1,6 @@
+"use client";
 import { useState } from "react";
+
 import { getImage } from "../app/utils/getImage";
 
 export default function AgreementFormPopup() {
