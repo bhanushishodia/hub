@@ -1,11 +1,16 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+
 
 import { getImage } from "./utils/getImage";
 const logo = getImage("hub-logo.png");
 const login = getImage("login-hub.png");
+
+useEffect(() => {
+  require("bootstrap/dist/js/bootstrap.bundle.min.js");
+}, []);
+
 
 // ✔️ Multiple Users with Roles
 const USERS = [
