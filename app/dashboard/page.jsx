@@ -1,12 +1,13 @@
 
 "use client"; // required for client-side hooks in app/ directory
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
+
 import UseCase from "@/components/UseCase";
 import { getImage } from "../utils/getImage";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import EventSlider from "@/components/EventSlider";
-import("bootstrap/dist/js/bootstrap.bundle.min.js");
+
 
 import Pdf from "@/components/Pdf";
 const whatsappHealthcareImg = getImage('/blog/whatsapp-for-healthcare.webp');
@@ -147,18 +148,25 @@ const blogCards = [
 
 export default function KnowledgeHubDashboard() {
 
-    const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const fullRef = useRef(null);
 
   const toggleFullscreen = () => {
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen();
-      setIsFullscreen(true);
-    } else {
-      document.exitFullscreen();
-      setIsFullscreen(false);
+    if (typeof document !== "undefined") {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+        setIsFullscreen(true);
+      } else {
+        document.exitFullscreen();
+        setIsFullscreen(false);
+      }
     }
   };
+  useEffect(() => {
+    import("bootstrap/dist/js/bootstrap.bundle.min.js");
+  }, []);
+
+
   const logo = getImage("hub-logo.png");
   const hubImage = getImage("hub-main.png");
   const meta = getImage("/whatsapp-pricing/Meta.png");
@@ -291,53 +299,53 @@ export default function KnowledgeHubDashboard() {
                 ))}
               </ul>
             )}
-        
+
+          </div>
+          <button onClick={toggleFullscreen} className="btn ms-3 d-flex align-items-center">
+            {isFullscreen ? (
+              // Fullscreen Exit Icon
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M4 8v-2a2 2 0 0 1 2-2h2" />
+                <path d="M4 16v2a2 2 0 0 0 2 2h2" />
+                <path d="M16 4h2a2 2 0 0 1 2 2v2" />
+                <path d="M16 20h2a2 2 0 0 0 2-2v-2" />
+              </svg>
+            ) : (
+              // Fullscreen Enter Icon
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M15 19v-2a2 2 0 0 1 2-2h2" />
+                <path d="M15 5v2a2 2 0 0 0 2 2h2" />
+                <path d="M5 15h2a2 2 0 0 1 2 2v2" />
+                <path d="M5 9h2a2 2 0 0 0 2-2v-2" />
+              </svg>
+            )}
+          </button>
+
+
+
         </div>
-<button onClick={toggleFullscreen} className="btn ms-3 d-flex align-items-center">
-  {isFullscreen ? (
-    // Fullscreen Exit Icon
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="22"
-      height="22"
-      viewBox="0 0 24 24"
-      strokeWidth="1.5"
-      stroke="currentColor"
-      fill="none"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M4 8v-2a2 2 0 0 1 2-2h2" />
-      <path d="M4 16v2a2 2 0 0 0 2 2h2" />
-      <path d="M16 4h2a2 2 0 0 1 2 2v2" />
-      <path d="M16 20h2a2 2 0 0 0 2-2v-2" />
-    </svg>
-  ) : (
-    // Fullscreen Enter Icon
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="22"
-      height="22"
-      viewBox="0 0 24 24"
-      strokeWidth="1.5"
-      stroke="currentColor"
-      fill="none"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M15 19v-2a2 2 0 0 1 2-2h2" />
-      <path d="M15 5v2a2 2 0 0 0 2 2h2" />
-      <path d="M5 15h2a2 2 0 0 1 2 2v2" />
-      <path d="M5 9h2a2 2 0 0 0 2-2v-2" />
-    </svg>
-  )}
-</button>
-
-
-
-      </div>
 
 
         {/* Right: Tabs */}
