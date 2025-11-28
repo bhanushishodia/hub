@@ -4,10 +4,6 @@ import React from "react";
 import Swiper from "swiper/bundle";
 import "swiper/css/bundle";
 import { getImage } from "../app/utils/getImage";
-
-
-
-
 // Blog images
 const img1 = getImage("blog/gitexblog.jpeg");
 const msmeexpoImg = getImage("blog/3days-milestones.jpg");
@@ -36,19 +32,19 @@ const BlogSlider = () => {
    
     {
       img: msmeexpoImg,
-      link: "/blog/msme-india-expo-2025-highlights",
+      link: "https://anantya.ai/blog/msme-india-expo-2025-highlights",
       title: "MSME Expo 2025",
       desc: "Anantya marked it’s homecoming at the MSME Expo, empowering Indian MSMEs with AI-powered WhatsApp automation.",
     },
     {
       img: AutomationblogImg,
-      link: "/blog/whatsapp-marketing-automation-entrepreneur-india-2025",
+      link: "https://anantya.ai/blog/whatsapp-marketing-automation-entrepreneur-india-2025",
       title: "Entrepreneur India 15th Edition",
       desc: "Anantya.ai participated in Entrepreneur India 2025, joining leading innovators in shaping the future of business innovation.",
     },
      {
       img: img1,
-      link: "/blog/gitex-2023-highlights-anantya-ai-ai-powered-messaging-evolution",
+      link: "https://anantya.ai/blog/gitex-2023-highlights-anantya-ai-ai-powered-messaging-evolution",
       title: "GITEX Global 2023",
       desc: "Anantya.ai made a strong mark at GITEX 2023, showcasing WhatsApp solutions  transforming business communication.",
     },

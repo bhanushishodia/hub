@@ -7,6 +7,7 @@ import UseCase from "@/components/UseCase";
 import { getImage } from "../utils/getImage";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import EventSlider from "@/components/EventSlider";
+import Lead from "@/components/Lead";
 
 
 import Pdf from "@/components/Pdf";
@@ -98,7 +99,7 @@ const blogCards = [
     title: "How to Use WhatsApp for Healthcare: A Simple Guide",
     description:
       "With a large user base of 2.79 billion people globally, WhatsApp is not only just for chatting; it’s also helping to save lives!",
-    link: "/blog/whatsapp-for-healthcare-a-simple-guide",
+    link: "https://anantya.ai/blog/whatsapp-for-healthcare-a-simple-guide",
 
   },
 
@@ -107,7 +108,7 @@ const blogCards = [
     title: "How WhatsApp Business API Can Improve Government Employment Services",
     description:
       "We all know there is a huge craze in India for government jobs, and securing one is a dream for many. But what we don't know is that nearly 220 million ",
-    link: "/blog/whatsapp-business-api-for-government-service",
+    link: "https://anantya.ai/blog/whatsapp-business-api-for-government-service",
 
   },
 
@@ -116,7 +117,7 @@ const blogCards = [
     title: "WhatsApp for Education: Benefits & Use Cases",
     description:
       "Nowadays, everybody is added to WhatsApp groups, be it for chit-chat or sharing information with each other. For example, when a student is admitted..",
-    link: "/blog/whatsapp-for-education",
+    link: "https://anantya.ai/blog/whatsapp-for-education",
 
   },
   {
@@ -124,7 +125,7 @@ const blogCards = [
     title: "WhatsApp for Restaurants: Unlock Benefits and Explore Use Cases",
     description:
       "Giving your customers outstanding services while managing a business effectively is a tough challenge for restaurants nowadays...",
-    link: "/blog/whatsapp-business-for-restaurants",
+    link: "https://anantya.ai/blog/whatsapp-business-for-restaurants",
 
   },
   {
@@ -132,7 +133,7 @@ const blogCards = [
     title: "WhatsApp Business API for Travel: Benefits & Use Cases in 2025",
     description:
       "Have you ever scrolled Instagram or YouTube shorts just to see what's trending, on an average 10 out of 1 reel/shorts always turns out to be a travel reel...",
-    link: "/blog/whatsapp-for-travel",
+    link: "https://anantya.ai/blog/whatsapp-for-travel",
 
   },
   {
@@ -140,7 +141,7 @@ const blogCards = [
     title: "WhatsApp for Retail : Benefits & Use Cases",
     description:
       "In today's fast-paced world, a retail industry can only be successful depending on how their connection with its customers is....",
-    link: "/blog/whatsapp-business-for-retail",
+    link: "https://anantya.ai/blog/whatsapp-business-for-retail",
 
   },
   // Add other card data objects here
@@ -267,7 +268,7 @@ export default function KnowledgeHubDashboard() {
             <input
               type="text"
               className="form-control ps-3 pe-5"
-              placeholder="What are you looking for today?...."
+              placeholder="What are you looking for today ?"
               style={{ borderRadius: "30px" }}
               value={searchValue}
               onChange={handleSearch}
@@ -426,7 +427,7 @@ export default function KnowledgeHubDashboard() {
               <div id="home-hero-section">
                 <h6 className="text-muted">Your Guide Starts Here</h6>
                 <h2 className="fw-bold text-dark">
-                  <span className="text-success">Anantya’s</span> Knowledge Hub
+                  <span>Anantya’s</span> Knowledge Hub
                 </h2>
                 <p className="text-muted mb-3 fw-semibold">
                   Your Support Center for Smarter, Faster, Insight-Driven Sales
@@ -599,86 +600,7 @@ export default function KnowledgeHubDashboard() {
 
                 {/* Main Row */}
                 <div className="container">
-                  <div className="row align-items-center">
-                    {/* Left Column */}
-                    <div className="col-md-6">
-                      <h5 className="text-secondary text-start mb-4 fw-semibold ms-2">Stage 1</h5>
-
-                      {/* Cards */}
-                      <div className="d-flex flex-column gap-3">
-                        {/* Card 1 */}
-                        <div className="d-flex align-items-center justify-content-between p-3 rounded-4 shadow-sm bg-light">
-                          <div>
-                            <h6 className="fw-bold mb-1 text-dark text-start">Calling Pitch</h6>
-                            <p className="mb-0 text-muted small">
-                              Turning every call into opportunity that clicks
-                            </p>
-                          </div>
-                          <div
-                            className="rounded-3 d-flex align-items-center justify-content-center"
-                            style={{
-                              width: "50px",
-                              height: "50px",
-                              backgroundColor: "#FFF8CC",
-                            }}
-                          >
-                            <i className="bi bi-hand-index-thumb fs-4 text-warning"></i>
-                          </div>
-                        </div>
-
-                        {/* Card 2 */}
-                        <div className="d-flex align-items-center justify-content-between p-3 rounded-4 shadow-sm bg-light">
-                          <div>
-                            <h6 className="fw-bold mb-1 text-dark text-start">Cold Outreach</h6>
-                            <p className="mb-0 text-muted small">
-                              Where first contact meets lasting connection
-                            </p>
-                          </div>
-                          <div
-                            className="rounded-3 d-flex align-items-center justify-content-center"
-                            style={{
-                              width: "50px",
-                              height: "50px",
-                              backgroundColor: "#FFE8E5",
-                            }}
-                          >
-                            <i className="bi bi-broadcast fs-4 text-danger"></i>
-                          </div>
-                        </div>
-
-                        {/* Card 3 */}
-                        <div className="d-flex align-items-center justify-content-between p-3 rounded-4 shadow-sm bg-light">
-                          <div>
-                            <h6 className="fw-bold mb-1 text-dark text-start">Follow Up</h6>
-                            <p className="mb-0 text-muted small">
-                              Because consistency closes what curiosity starts
-                            </p>
-                          </div>
-                          <div
-                            className="rounded-3 d-flex align-items-center justify-content-center"
-                            style={{
-                              width: "50px",
-                              height: "50px",
-                              backgroundColor: "#DFF9FB",
-                            }}
-                          >
-                            <i className="bi bi-person-lines-fill fs-4 text-info"></i>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Right Column */}
-                    <div className="col-md-6 text-center mt-5 mt-md-0">
-                      <div className="position-relative">
-                        <img
-                          src={stage1}
-                          alt="Lead Management"
-                          className="img-fluid rounded-4 shadow"
-                          style={{ width: "80%" }} />
-                      </div>
-                    </div>
-                  </div>
+                    <Lead />     
                 </div>
               </section>
 
@@ -1298,10 +1220,16 @@ export default function KnowledgeHubDashboard() {
                     <h5 className="liner_color">Built Points</h5>
                     <div className="info">
                       <div className="text small text-black mb-2">Stay updated with the latest build points, new features, and improvements. </div>
-                      <a href="/blog/whatsapp-business-api-india-2025-guide" className="custom-color-class" aria-label="Read more about WhatsApp Business API in 2025: The Complete Guide for Indian Businesses." title="Read more about WhatsApp Business API in 2025: The Complete Guide for Indian Businesses.">Explore updates
-
-
+                      <a
+                        href="/pdf/Build-v5.9.0.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="custom-color-class"
+                        aria-label="Read more and download Build-v5.9.0"
+                      >
+                        Explore new build updates →
                       </a>
+
                     </div>
                   </div>
                 </div>
@@ -1467,7 +1395,7 @@ export default function KnowledgeHubDashboard() {
                         01
                       </div>
                     </div>
-                    <h2 className="fw-bold mb-3">
+                    <h2 className="fw-bold mb-3 text-dark">
                       <span className="text-info-head">Raise a Request</span> & FAQ
                     </h2>
                     <p className="text-muted">
