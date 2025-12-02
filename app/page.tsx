@@ -11,7 +11,7 @@ const login = getImage("login-hub.png");
 const USERS = [
   {
     email: "admin@anantya.ai",
-    password: "Bhanu@018",
+    password: "Yashika@018",
     role: "admin",
   },
   {
@@ -62,8 +62,9 @@ export default function KnowledgeHubLogin() {
         localStorage.removeItem("password");
       }
 
-      localStorage.setItem("user", matchedUser.email);
-      localStorage.setItem("role", matchedUser.role);
+     document.cookie = `user=${matchedUser.email}; path=/`;
+document.cookie = `role=${matchedUser.role}; path=/`;
+
 
       router.push("/dashboard");
     } else {
@@ -169,6 +170,8 @@ export default function KnowledgeHubLogin() {
           </button>
         
         </form>
+        <div className="small version-text mt-3 text-dark fw-semibold muted small">Version 1.0.2 
+          </div> 
       </div>
     </div>
   );

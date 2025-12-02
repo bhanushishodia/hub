@@ -1215,7 +1215,8 @@ text {
 }
 
 .accordion-body {
-  padding: 10px 0 15px 0;
+  padding: 10px 15px 15px 15px;
+  text-align: justify;
   font-size: 0.95rem;
   line-height: 1.6;
   color: #ccc;
@@ -1702,7 +1703,6 @@ button {
 
 .sop_card a {
   color: rgba(54, 170, 143, 1);
-  font-weight: 600;
 }
 
 .btn {
@@ -1887,8 +1887,72 @@ h2 span {
   margin-bottom: 10px;
   transition: 0.2s ease-in-out;
 }
-
 .copy-btn:hover {
   opacity: 0.9;
   transform: scale(1.02);
+}
+.hub-sidebar {
+    position: sticky;
+    top: 50px;
+    z-index: 999;
+}
+
+.read-more-link {
+  color: #00bcd4!important;      /* nice cyan color */
+  font-weight: 500;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.read-more-link .arrow {
+  margin-left: 2px;
+  transition: 0.3s;
+}
+
+.read-more-link:hover {
+  color: #008ba3;
+}
+
+.read-more-link:hover .arrow {
+  margin-left: 8px;    /* arrow moves slightly on hover */
+}
+
+.logout-icon-btn {
+  background: #f7f7f7;
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logout-icon-btn:hover {
+  background: #ffe5e5;
+}
+
+.logout-svg {
+  transition: transform 0.3s ease, stroke 0.3s ease;
+}
+
+.logout-svg {
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), 
+              stroke 0.3s ease;
+}
+
+.logout-icon-btn:hover .logout-svg {
+  transform: rotate(-180deg);
+  stroke: #ff1a1a;
+}
+
+.input-group .btn {
+ background:#d4dae5;
+}
+
+.version-text {
+    position: absolute;
+    bottom: 2%;
+  
 }

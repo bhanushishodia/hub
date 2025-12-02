@@ -73,7 +73,10 @@ const BlogSlider = () => {
 
                       <p className="small mt-2 op-8">{item.desc}</p>
 
-                      <a href={item.link}>Read More</a>
+                     <a href={item.link} className="read-more-link">
+  Read More <span className="arrow">→</span>
+</a>
+
                     </div>
                   </div>
                 </div>

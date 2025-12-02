@@ -1,16 +1,13 @@
 
 "use client"; // required for client-side hooks in app/ directory
-
 import React, { useState, useRef, useEffect } from "react";
-
 import UseCase from "@/components/UseCase";
 import { getImage } from "../utils/getImage";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import EventSlider from "@/components/EventSlider";
 import Lead from "@/components/Lead";
-
-
 import Pdf from "@/components/Pdf";
+import { useRouter } from "next/navigation";
 const whatsappHealthcareImg = getImage('/blog/whatsapp-for-healthcare.webp');
 const ApiGovermentImg = getImage("blog/how-whatsapp-business-api-can-improve-government-gmployment-services.webp");// Fetching images dynamically using the getImage function
 
@@ -148,9 +145,23 @@ const blogCards = [
 ];
 
 export default function KnowledgeHubDashboard() {
-
+  const router = useRouter();
   const [isFullscreen, setIsFullscreen] = useState(false);
   const fullRef = useRef(null);
+  
+  const handleLogout = () => {
+  // Delete cookies
+  document.cookie = "user=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+  document.cookie = "role=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+
+  // Optional: delete remember me
+  localStorage.removeItem("username");
+  localStorage.removeItem("password");
+
+  // Redirect to login
+  router.push("/");
+};
+
 
   const toggleFullscreen = () => {
     if (typeof document !== "undefined") {
@@ -344,6 +355,25 @@ export default function KnowledgeHubDashboard() {
             )}
           </button>
 
+<button onClick={handleLogout} className="logout-icon-btn">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="22"
+    height="22"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="logout-svg"
+  >
+    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+    <polyline points="16 17 21 12 16 7" />
+    <line x1="21" y1="12" x2="9" y2="12" />
+  </svg>
+</button>
+
 
 
         </div>
@@ -375,7 +405,7 @@ export default function KnowledgeHubDashboard() {
           }}
         >
 
-          <ul className="nav flex-column text-white w-100 text-center ">
+          <ul className="nav flex-column text-white w-100 text-center  my-auto">
             {[
               { id: "home", icon: "bi-house-door", label: "Home" },
               {
@@ -485,7 +515,7 @@ export default function KnowledgeHubDashboard() {
 
           {activeTab === "comprehensive" && (
             <div id="comprehensive-section">
-              <section className="py-5">
+              <section className="pb-5">
                 <div className="container text-center" id="stage-1">
                   {/* Top Circle Number */}
                   <div className="step-circle-wrapper d-flex justify-content-center mb-3">
@@ -600,7 +630,7 @@ export default function KnowledgeHubDashboard() {
 
                 {/* Main Row */}
                 <div className="container">
-                    <Lead />     
+                  <Lead />
                 </div>
               </section>
 
@@ -1007,7 +1037,7 @@ export default function KnowledgeHubDashboard() {
 
           {activeTab === "operations" && (
             <div id="operation">
-              <section className="py-5 ">
+              <section className="pb-5 ">
                 <div className="container">
                   <div className="px-md-4">
                     <div className="step-circle-wrapper d-flex justify-content-center mb-3">
@@ -1045,15 +1075,16 @@ export default function KnowledgeHubDashboard() {
 
                         <h5><a href="/blog/whatsapp-business-api-india-2025-guide">Pre-Sales SOP & SLA</a></h5>
                         <div className="info">
-                          <div className="text small text-black mb-2">Outlines how Anantya.ai automates lead engagement, follow-ups, and communication to boost response speed and conversion rates. </div>
+                          <div className="text small text-black mb-2 ">Outlines how Anantya.ai automates lead engagement, follow-ups, and communication to boost response speed and conversion rates.
+                          </div>
                           <a
                             href="/pdf/Onboarding-SOP&SLA.pdf"
-                            className="custom-color-class"
+                            className="read-more-link"
                             download
                             aria-label="Onboarding SOP & SLA"
                             title="Onboarding SOP & SLA"
                           >
-                            Download Now
+                            Download Now <span className="arrow">→</span>
 
                           </a>
 
@@ -1082,12 +1113,12 @@ export default function KnowledgeHubDashboard() {
                           <div className="text small text-black mb-2">Covers client onboarding steps, automation templates, and best practices for a smooth and consistent start. </div>
                           <a
                             href="/pdf/Onboarding-SOP&SLA.pdf"
-                            className="custom-color-class"
+                            className="read-more-link"
                             download
                             aria-label="Onboarding SOP & SLA"
                             title="Onboarding SOP & SLA"
                           >
-                            Download Now
+                            Download Now <span className="arrow">→</span>
 
                           </a>
                         </div>
@@ -1114,12 +1145,12 @@ export default function KnowledgeHubDashboard() {
                           <div className="text small text-black mb-2"> Explains how Anantya.ai connects with CRMs, e-commerce, and payment systems for seamless integration and workflow efficiency. </div>
                           <a
                             href="/pdf/Integration-Process.pdf"
-                            className="custom-color-class"
+                            className="read-more-link"
                             download
                             aria-label="Integration Process"
                             title="Integration Process"
                           >
-                            Download Now
+                            Download Now<span className="arrow">→</span>
 
                           </a>
                         </div>
@@ -1173,7 +1204,7 @@ export default function KnowledgeHubDashboard() {
                     <div className="blog_card p-4 mb-4" data-wow-delay={`${index * 0.2}s`}>
                       <img src={card.imgSrc} className="img-fluid" alt="blog-image" />
 
-                      <h5>
+                      <h5 className="my-3">
                         <a href={card.link}>{card.title}</a>
                       </h5>
 
@@ -1181,12 +1212,12 @@ export default function KnowledgeHubDashboard() {
                         {/* <div className="text">{card.description}</div> */}
                         <a
                           href={card.link}
-                          className="custom-color-class"
+                          className="read-more-link"
                           aria-label={`Read more about ${card.title}`}
                           title={`Read more about ${card.title}`}
                         >
                           Read More
-                          <i className="fas fa-long-arrow-right ms-2 colorfa_1 my-auto mt-2"></i>
+                          <span className="arrow">→</span>
                         </a>
                       </div>
                     </div>
@@ -1214,47 +1245,46 @@ export default function KnowledgeHubDashboard() {
               </p>
               <div className="row row-cols-1 row-cols-md-3 g-4 py-4 mb-3 px-md-0 px-3 blog-content">
                 <div className="col">
-                  <div className="sop_card p-4  mb-4" data-wow-delay="0s">
+                  <div className="sop_card p-4 " data-wow-delay="0s">
                     <img src={update1} className="img-fluid" alt="blog-image" />
 
-                    <h5 className="liner_color">Built Points</h5>
+                    <h5 className="liner_color">Build Points</h5>
                     <div className="info">
                       <div className="text small text-black mb-2">Stay updated with the latest build points, new features, and improvements. </div>
                       <a
                         href="/pdf/Build-v5.9.0.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="custom-color-class"
+                        className="read-more-link"
                         aria-label="Read more and download Build-v5.9.0"
                       >
-                        Explore new build updates →
+                        Explore new build updates <span className="arrow">→</span>
                       </a>
 
                     </div>
                   </div>
                 </div>
                 <div className="col">
-                  <div className="sop_card p-4  mb-4 " data-wow-delay="0s">
+                  <div className="sop_card p-4  " data-wow-delay="0s">
                     <img src={update2} className="img-fluid" alt="blog-image" />
 
                     <h5 className="liner_color"> Meta Updates</h5>
                     <div className="info">
                       <div className="text small text-black mb-2">Covers client onboarding steps, automation templates, and best practices for a smooth and consistent start. </div>
-                      <a href="/blog/whatsapp-business-api-india-2025-guide" className="custom-color-class" aria-label="Read more about WhatsApp Business API in 2025: The Complete Guide for Indian Businesses." title="Read more about WhatsApp Business API in 2025: The Complete Guide for Indian Businesses.">Explore updates
-
+                      <a href="/blog/whatsapp-business-api-india-2025-guide" className="read-more-link" aria-label="Read more about WhatsApp Business API in 2025: The Complete Guide for Indian Businesses." title="Read more about WhatsApp Business API in 2025: The Complete Guide for Indian Businesses.">Explore updates <span className="arrow">→</span>
 
                       </a>
                     </div>
                   </div>
                 </div>
                 <div className="col">
-                  <div className="sop_card p-4  mb-4 " data-wow-delay="0s">
+                  <div className="sop_card p-4 " data-wow-delay="0s">
                     <img src={update3} className="img-fluid" alt="blog-image" />
 
                     <h5 className="liner_color">Anantya Updates</h5>
                     <div className="info">
                       <div className="text small text-black mb-2"> Explore the latest innovations, releases, and accomplishments from Anantya. </div>
-                      <a href="/blog/whatsapp-business-api-india-2025-guide" className="custom-color-class" aria-label="Read more about WhatsApp Business API in 2025: The Complete Guide for Indian Businesses." title="Read more about WhatsApp Business API in 2025: The Complete Guide for Indian Businesses.">Explore updates
+                      <a href="/blog/whatsapp-business-api-india-2025-guide" className="read-more-link" aria-label="Read more about WhatsApp Business API in 2025: The Complete Guide for Indian Businesses." title="Read more about WhatsApp Business API in 2025: The Complete Guide for Indian Businesses.">Explore updates <span className="arrow">→</span>
 
 
                       </a>
@@ -1270,7 +1300,7 @@ export default function KnowledgeHubDashboard() {
 
           {activeTab === "integration" && (
             <div id="integration">
-              <div className="integration-section container text-center py-5">
+              <div className="integration-section container text-center pb-5">
                 {/* Step 1 */}
                 <div className="step-circle-wrapper step-circle-wrapper-orange d-flex justify-content-center mb-3">
                   <div
@@ -1384,7 +1414,7 @@ export default function KnowledgeHubDashboard() {
           {activeTab === "know" && (
             <div id="know">
 
-              <section className="py-5 ">
+              <section className="pb-5 ">
                 <div className="container">
                   <div className="px-md-4">
                     <div className="step-circle-wrapper d-flex justify-content-center mb-3">
@@ -1430,7 +1460,7 @@ export default function KnowledgeHubDashboard() {
                             aria-labelledby="q1"
                             data-bs-parent="#faqAccordion"
                           >
-                            <div className="accordion-body text-start text-dark">
+                            <div className="accordion-body text-dark">
                               Anantya.ai is a Communication Platform as a Service (CPaaS) powered by the WhatsApp Business API
                               with omnichannel capabilities. Our platform helps businesses streamline customer communication,
                               manage lead inventory, drive better conversions, and boost conversions through WhatsApp Business API,
@@ -1460,7 +1490,7 @@ export default function KnowledgeHubDashboard() {
                             aria-labelledby="q2"
                             data-bs-parent="#faqAccordion"
                           >
-                            <div className="accordion-body text-start text-dark">
+                            <div className="accordion-body text-dark">
                               <ul>
                                 <li>API integration with CRM/ERP systems</li>
                                 <li>Personalized chatbot that can be customized to your needs</li>
@@ -1500,7 +1530,7 @@ export default function KnowledgeHubDashboard() {
                             aria-labelledby="q3"
                             data-bs-parent="#faqAccordion"
                           >
-                            <div className="accordion-body text-start text-dark">
+                            <div className="accordion-body text-dark">
                               Anantya.ai helps businesses enhance customer engagement, automate repetitive tasks, and increase
                               conversion rates. With chatbots and WhatsApp automation, businesses can handle queries instantly,
                               capture leads efficiently, and drive more sales through personalized marketing campaigns.
@@ -1535,7 +1565,7 @@ export default function KnowledgeHubDashboard() {
                             aria-labelledby="q4"
                             data-bs-parent="#faqAccordion"
                           >
-                            <div className="accordion-body text-start text-dark">
+                            <div className="accordion-body  text-dark">
                               <strong>Exceptional Customer Support:</strong><br />
                               We take customer support very seriously. Every client is assigned a key account manager who guides
                               you through each step — from onboarding to campaign optimization — ensuring you get the most out of our platform.
@@ -1576,7 +1606,7 @@ export default function KnowledgeHubDashboard() {
                             aria-labelledby="q5"
                             data-bs-parent="#faqAccordion"
                           >
-                            <div className="accordion-body text-start text-dark">
+                            <div className="accordion-body  text-dark">
                               Anantya.ai does not directly generate leads. However, we can connect you with vendors who specialize
                               in lead generation and can provide relevant databases for your target audience.
                               <br /><br />
@@ -1585,6 +1615,167 @@ export default function KnowledgeHubDashboard() {
                             </div>
                           </div>
                         </div>
+                        {/* Q6 */}
+                        <div className="accordion-item custom-accordion">
+                          <h2 className="accordion-header" id="q6">
+                            <button
+                              className="accordion-button collapsed bg-transparent text-dark shadow-none"
+                              type="button"
+                              data-bs-toggle="collapse"
+                              data-bs-target="#a6"
+                              aria-expanded="false"
+                              aria-controls="a6"
+                              style={{ position: "relative", zIndex: 20 }}
+                            >
+                              Q6. How long does Meta take to approve a template?
+                            </button>
+                          </h2>
+                          <div
+                            id="a6"
+                            className="accordion-collapse collapse"
+                            aria-labelledby="q6"
+                            data-bs-parent="#faqAccordion"
+                          >
+                            <div className="accordion-body  text-dark">
+                              Usually within <strong>1–15 minutes</strong>, but in some cases up to <strong>24 hours</strong> depending on Meta’s evaluation system.
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Q7 */}
+                        <div className="accordion-item custom-accordion">
+                          <h2 className="accordion-header" id="q7">
+                            <button
+                              className="accordion-button collapsed bg-transparent text-dark shadow-none"
+                              type="button"
+                              data-bs-toggle="collapse"
+                              data-bs-target="#a7"
+                              aria-expanded="false"
+                              aria-controls="a7"
+                              style={{ position: "relative", zIndex: 20 }}
+                            >
+                              Q7. What media formats does WhatsApp support?
+                            </button>
+                          </h2>
+                          <div
+                            id="a7"
+                            className="accordion-collapse collapse"
+                            aria-labelledby="q7"
+                            data-bs-parent="#faqAccordion"
+                          >
+                            <div className="accordion-body  text-dark">
+                              WhatsApp supports the following formats:
+                              <br /><br />
+                              <ul>
+                                <li>Images (JPG, PNG)</li>
+                                <li>Videos (MP4)</li>
+                                <li>Documents (PDF, DOC, XLS, PPT)</li>
+                                <li>Audio (AAC, MP3, M4A)</li>
+                                <li>Stickers (WebP)</li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Q8 */}
+                        <div className="accordion-item custom-accordion">
+                          <h2 className="accordion-header" id="q8">
+                            <button
+                              className="accordion-button collapsed bg-transparent text-dark shadow-none"
+                              type="button"
+                              data-bs-toggle="collapse"
+                              data-bs-target="#a8"
+                              aria-expanded="false"
+                              aria-controls="a8"
+                              style={{ position: "relative", zIndex: 20 }}
+                            >
+                              Q8. Why are my WhatsApp templates paused?
+                            </button>
+                          </h2>
+                          <div
+                            id="a8"
+                            className="accordion-collapse collapse"
+                            aria-labelledby="q8"
+                            data-bs-parent="#faqAccordion"
+                          >
+                            <div className="accordion-body text-dark">
+                              Meta pauses templates when they receive a high number of negative user interactions, such as:
+                              <ul>
+                                <li>Blocks</li>
+                                <li>User reports</li>
+                                <li>Low-quality feedback</li>
+                              </ul>
+                              When paused, delivery stops temporarily to protect user experience.
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Q9 */}
+                        <div className="accordion-item custom-accordion">
+                          <h2 className="accordion-header" id="q9">
+                            <button
+                              className="accordion-button collapsed bg-transparent text-dark shadow-none"
+                              type="button"
+                              data-bs-toggle="collapse"
+                              data-bs-target="#a9"
+                              aria-expanded="false"
+                              aria-controls="a9"
+                              style={{ position: "relative", zIndex: 20 }}
+                            >
+                              Q9. Why is my Quality Rating low on Meta?
+                            </button>
+                          </h2>
+                          <div
+                            id="a9"
+                            className="accordion-collapse collapse"
+                            aria-labelledby="q9"
+                            data-bs-parent="#faqAccordion"
+                          >
+                            <div className="accordion-body  text-dark">
+                              Quality ratings drop due to:
+                              <ul>
+                                <li>High opt-outs or blocks</li>
+                                <li>Repeated promotional messages</li>
+                                <li>Sending to cold or outdated lists</li>
+                                <li>Poorly written or misleading templates</li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Q10 */}
+                        <div className="accordion-item custom-accordion">
+                          <h2 className="accordion-header" id="q10">
+                            <button
+                              className="accordion-button collapsed bg-transparent text-dark shadow-none"
+                              type="button"
+                              data-bs-toggle="collapse"
+                              data-bs-target="#a10"
+                              aria-expanded="false"
+                              aria-controls="a10"
+                              style={{ position: "relative", zIndex: 20 }}
+                            >
+                              Q10. What is a Healthy Ecosystem Failure?
+                            </button>
+                          </h2>
+                          <div
+                            id="a10"
+                            className="accordion-collapse collapse"
+                            aria-labelledby="q10"
+                            data-bs-parent="#faqAccordion"
+                          >
+                            <div className="accordion-body  text-dark">
+                              A Healthy Ecosystem Failure occurs when WhatsApp detects unusual activity such as:
+                              <ul>
+                                <li>High message errors</li>
+                                <li>Invalid numbers</li>
+                                <li>Low-quality user responses</li>
+                              </ul>
+                              Meta temporarily restricts sending until the issue is resolved to maintain platform health.
+                            </div>
+                          </div>
+                        </div>
+
 
                       </div>
                     </div>
