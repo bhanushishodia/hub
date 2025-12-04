@@ -1,9 +1,7 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { getImage } from "./utils/getImage";
-
 const logo = getImage("hub-logo.png");
 const login = getImage("login-hub.png");
 
@@ -62,8 +60,8 @@ export default function KnowledgeHubLogin() {
         localStorage.removeItem("password");
       }
 
-     document.cookie = `user=${matchedUser.email}; path=/`;
-document.cookie = `role=${matchedUser.role}; path=/`;
+      document.cookie = `user=${matchedUser.email}; path=/`;
+      document.cookie = `role=${matchedUser.role}; path=/`;
 
 
       router.push("/dashboard");
@@ -90,7 +88,7 @@ document.cookie = `role=${matchedUser.role}; path=/`;
 
   return (
     <div className="container-fluid vh-100 d-flex flex-column flex-md-row p-0">
-      
+
       {/* Left Section */}
       <div className="col-12 col-md-7 d-flex flex-column justify-content-center align-items-start p-4 p-md-5">
         <div className="text-start">
@@ -112,7 +110,7 @@ document.cookie = `role=${matchedUser.role}; path=/`;
         </h4>
 
         <form onSubmit={handleLogin} className="p-4 rounded w-100" style={{ maxWidth: "400px" }}>
-          
+
           <div className="mb-3">
             <label className="form-label">User Name</label>
             <input
@@ -168,10 +166,10 @@ document.cookie = `role=${matchedUser.role}; path=/`;
           <button type="submit" className="btn btn-success w-100 d-block mx-auto fw-semibold">
             Login
           </button>
-        
+
         </form>
-        <div className="small version-text mt-3 text-dark fw-semibold muted small">Version 1.0.2 
-          </div> 
+        <div className="small version-text mt-3 text-dark fw-semibold muted small">Version 1.0.2
+        </div>
       </div>
     </div>
   );

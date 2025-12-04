@@ -5,6 +5,7 @@ import UseCase from "@/components/UseCase";
 import { getImage } from "../utils/getImage";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import EventSlider from "@/components/EventSlider";
+import HubForm from "@/components/forms/HubForm";
 import Lead from "@/components/Lead";
 import Pdf from "@/components/Pdf";
 import { useRouter } from "next/navigation";
@@ -145,22 +146,23 @@ const blogCards = [
 ];
 
 export default function KnowledgeHubDashboard() {
+
   const router = useRouter();
   const [isFullscreen, setIsFullscreen] = useState(false);
   const fullRef = useRef(null);
-  
+
   const handleLogout = () => {
-  // Delete cookies
-  document.cookie = "user=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-  document.cookie = "role=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    // Delete cookies
+    document.cookie = "user=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    document.cookie = "role=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
 
-  // Optional: delete remember me
-  localStorage.removeItem("username");
-  localStorage.removeItem("password");
+    // Optional: delete remember me
+    localStorage.removeItem("username");
+    localStorage.removeItem("password");
 
-  // Redirect to login
-  router.push("/");
-};
+    // Redirect to login
+    router.push("/");
+  };
 
 
   const toggleFullscreen = () => {
@@ -355,24 +357,24 @@ export default function KnowledgeHubDashboard() {
             )}
           </button>
 
-<button onClick={handleLogout} className="logout-icon-btn">
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="22"
-    height="22"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className="logout-svg"
-  >
-    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-    <polyline points="16 17 21 12 16 7" />
-    <line x1="21" y1="12" x2="9" y2="12" />
-  </svg>
-</button>
+          <button onClick={handleLogout} className="logout-icon-btn">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="logout-svg"
+            >
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+              <polyline points="16 17 21 12 16 7" />
+              <line x1="21" y1="12" x2="9" y2="12" />
+            </svg>
+          </button>
 
 
 
@@ -405,7 +407,7 @@ export default function KnowledgeHubDashboard() {
           }}
         >
 
-          <ul className="nav flex-column text-white w-100 text-center  my-auto">
+          <ul className="nav flex-column text-white w-100 text-center my-auto">
             {[
               { id: "home", icon: "bi-house-door", label: "Home" },
               {
@@ -419,29 +421,48 @@ export default function KnowledgeHubDashboard() {
                 label: "Tailored <br /> Resources",
               },
               {
+                id: "leads",
+                icon: "bi-person-lines-fill",
+                label: "Leads <br /> Management",
+                url: "/leads", // ⭐ ONLY LEADS HAS URL
+              },
+              {
                 id: "operations",
                 icon: "bi-gear",
                 label: "Operational <br /> Processes",
               },
-              { id: "updates", icon: "bi-newspaper", label: "Updates &<br /> News" },
+              {
+                id: "updates",
+                icon: "bi-newspaper",
+                label: "Updates &<br /> News",
+              },
               { id: "integration", icon: "bi-plug", label: "Integration" },
               { id: "know", icon: "bi-info-circle", label: "Know More" },
             ].map((item) => (
               <li
                 key={item.id}
-                className={`nav-item px-3  d-flex flex-column align-items-center sidebar-item ${activeTab === item.id ? "active-sidebar" : ""
+                className={`nav-item px-3 d-flex flex-column align-items-center sidebar-item ${activeTab === item.id ? "active-sidebar" : ""
                   }`}
-                onClick={() => setActiveTab(item.id)}
+                onClick={() => {
+                  setActiveTab(item.id);
+
+                  // ⭐ Navigate ONLY IF URL EXISTS (means only for leads)
+                  if (item.url) {
+                    router.push(item.url);
+                  }
+                }}
               >
                 <i className={`bi ${item.icon} fs-4 mb-0`}></i>
+
                 <small
-                  className="text-white" style={{ marginTop: "0px" }}
+                  className="text-white"
+                  style={{ marginTop: "0px" }}
                   dangerouslySetInnerHTML={{ __html: item.label }}
                 />
-
               </li>
             ))}
           </ul>
+
         </div>
 
         {/* ===== MAIN CONTENT ===== */}
@@ -1031,6 +1052,11 @@ export default function KnowledgeHubDashboard() {
 
           {activeTab === "tailored" && (
             <div id="tailored-education">
+              <UseCase />
+            </div>
+          )}
+          {activeTab === "leads" && (
+            <div id="leads-management">
               <UseCase />
             </div>
           )}
@@ -1784,58 +1810,8 @@ export default function KnowledgeHubDashboard() {
 
                     {/* Right Form */}
                     <div className="col-md-5 ps-md-5">
-                      <div className="card shadow-sm border-0 rounded-3">
-                        <div className="card-body p-4">
-                          <h5 className="fw-semibold text-center mb-1">
-                            In what way can we help?
-                          </h5>
-                          <p className="text-center text-muted small mb-4">
-                            Feel free to reach out to us with your enquiry
-                          </p>
-                          <hr />
+                      <HubForm />
 
-                          <form>
-                            <div className="mb-3 text-start">
-                              <label className="form-label fw-semibold">Name</label>
-                              <input
-                                type="text"
-                                className="form-control"
-                                placeholder="Enter your name"
-                                required
-                              />
-                            </div>
-
-                            <div className="mb-3 text-start">
-                              <label className="form-label fw-semibold">Work Email</label>
-                              <input
-                                type="email"
-                                className="form-control"
-                                placeholder="you@company.com"
-                                required
-                              />
-                            </div>
-
-                            <div className="mb-3 text-start">
-                              <label className="form-label fw-semibold">
-                                Write your question
-                              </label>
-                              <textarea
-                                className="form-control"
-                                rows="4"
-                                placeholder="Type your question here..."
-                              ></textarea>
-                            </div>
-
-                            <div className="d-grid">
-                              <button
-                                type="submit"
-                                className="btn btn-success w-100 mx-auto d-block fw-semibold">
-                                Submit
-                              </button>
-                            </div>
-                          </form>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>

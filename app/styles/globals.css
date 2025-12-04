@@ -708,9 +708,21 @@ text {
   box-shadow: 8px 3px 4px 0px rgba(0, 0, 0, 0.25);
 
 }
+.hub-header-lead{
+    z-index: 2000;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+    box-shadow: 8px 3px 4px 0px rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(12px);
+    background: linear-gradient(85.35deg, #093055 .77%, #12dfdf 98.65%);
+    box-shadow: 20px 20px 50px 0 #193d830d;
+
+}
 
 .btn-success {
   background: linear-gradient(92.5deg, #0A4763 -0.68%, #099E8D 97.14%);
+}
+.lead .btn-success {
+border-radius: 12px!important;
 }
 
 .btn-hub {
@@ -2000,4 +2012,20 @@ h2 span {
   height: 350px;
   border: none;
   border-radius: 10px;
+}
+
+
+/* Hide scrollbar but keep scroll functional */
+.sidebar-scroll {
+  overflow-y: auto;
+  scrollbar-width: none;     /* Firefox */
+}
+/* Hide scrollbar but keep scroll functional */
+
+
+.sidebar-scroll::-webkit-scrollbar {
+  display: none;             /* Chrome, Edge, Safari */
+}
+.sidesmall{
+    font-size: 10px!important;
 }
