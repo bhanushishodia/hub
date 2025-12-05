@@ -7,7 +7,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import EventSlider from "@/components/EventSlider";
 import HubForm from "@/components/forms/HubForm";
 import Lead from "@/components/Lead";
-import Pdf from "@/components/Pdf";
+import Stage2 from "@/components/Stage2";
+import Stage3 from "@/components/Stage3";
+import Stage4 from "@/components/Stage4";
+import Stage5 from "@/components/Stage5";
+
 import { useRouter } from "next/navigation";
 const whatsappHealthcareImg = getImage('/blog/whatsapp-for-healthcare.webp');
 const ApiGovermentImg = getImage("blog/how-whatsapp-business-api-can-improve-government-gmployment-services.webp");// Fetching images dynamically using the getImage function
@@ -588,8 +592,8 @@ export default function KnowledgeHubDashboard() {
                       </ul>
 
                       <a
-                        href="#"
-                        className="fw-semibold text-decoration-none ms-md-4 mt-3 d-inline-block"
+                        href="https://www.youtube.com/watch?v=0ulAJS1P3rI&t=30s" target="_blank"
+                        className="fw-semibold text-decoration-none ms-md-4  d-inline-block"
                         style={{ color: "#8C8B00" }}
                       >
                         Experience Platform in Action →
@@ -677,62 +681,7 @@ export default function KnowledgeHubDashboard() {
 
                 {/* Main Row */}
                 <div className="container">
-                  <div className="row align-items-center flex-column flex-md-row">
-                    {/* Left Section */}
-                    <div className="col-md-6 order-2 order-md-1">
-                      <h5 className="text-secondary fw-semibold text-start mb-4 ms-2">Stage 2</h5>
-                      <div className="d-flex flex-column gap-3">
-                        {/* Card 1 */}
-                        <div className="d-flex align-items-center justify-content-between p-3 rounded-4 shadow-sm bg-light">
-                          <div>
-                            <h6 className="fw-bold mb-1 text-dark text-start">Schedule Meeting</h6>
-                            <p className="mb-0 text-muted small">
-                              Focus on what your business and customers really need.
-                            </p>
-                          </div>
-                          <div
-                            className="rounded-3 d-flex align-items-center justify-content-center"
-                            style={{
-                              width: "50px",
-                              height: "50px",
-                              backgroundColor: "#FFF8CC",
-                            }}
-                          >
-                            <i className="bi bi-hand-index-thumb fs-4 text-warning"></i>
-                          </div>
-                        </div>
-
-                        {/* Card 2 */}
-                        <div className="d-flex align-items-center justify-content-between p-3 rounded-4 shadow-sm bg-light">
-                          <div>
-                            <h6 className="fw-bold mb-1 text-dark text-start">Follow Up</h6>
-                            <p className="mb-0 text-muted small">
-                              Spot where the platform can make the biggest impact.
-                            </p>
-                          </div>
-                          <div
-                            className="rounded-3 d-flex align-items-center justify-content-center"
-                            style={{
-                              width: "50px",
-                              height: "50px",
-                              backgroundColor: "#FFE8E5",
-                            }}
-                          >
-                            <i className="bi bi-broadcast fs-4 text-danger"></i>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Right Section (Image) */}
-                    <div className="col-md-6 text-center mb-4 mb-md-0 order-1 order-md-2">
-                      <img
-                        src={stage2}
-                        alt="Stage 2 Meeting"
-                        className="img-fluid rounded-4 shadow-sm" style={{ width: "80%" }}
-                      />
-                    </div>
-                  </div>
+                  <Stage2 />
                 </div>
               </section>
               <section className="py-5">
@@ -753,62 +702,8 @@ export default function KnowledgeHubDashboard() {
                 </div>
 
                 <div className="container">
-                  <div className="row align-items-center flex-column flex-md-row">
-                    {/* Left Section */}
-                    <div className="col-md-6 order-2 order-md-1">
-                      <h5 className="text-secondary fw-semibold text-start mb-4 ms-2">Stage 3</h5>
+                  <Stage3 />
 
-                      <div className="d-flex flex-column gap-3">
-                        {/* Card 1 */}
-                        <div className="d-flex align-items-center justify-content-between p-3 rounded-4 shadow-sm bg-light">
-                          <div>
-                            <h6 className="fw-bold mb-1 text-dark text-start">Share Proposal</h6>
-                            <p className="mb-0 text-muted small">
-                              Focus on what your business and customers really need.
-                            </p>
-                          </div>
-                          <div
-                            className="rounded-3 d-flex align-items-center justify-content-center"
-                            style={{
-                              width: "50px",
-                              height: "50px",
-                              backgroundColor: "#FFF8CC",
-                            }}
-                          >
-                            <i className="bi bi-lightbulb fs-4 text-warning"></i>
-                          </div>
-                        </div>
-
-                        {/* Card 2 */}
-                        <div className="d-flex align-items-center justify-content-between p-3 rounded-4 shadow-sm bg-light">
-                          <div>
-                            <h6 className="fw-bold mb-1 text-dark text-start">Follow Up</h6>
-                            <p className="mb-0 text-muted small">
-                              Spot where the platform can make the biggest impact.
-                            </p>
-                          </div>
-                          <div
-                            className="rounded-3 d-flex align-items-center justify-content-center"
-                            style={{
-                              width: "50px",
-                              height: "50px",
-                              backgroundColor: "#FFE8E5",
-                            }}
-                          >
-                            <i className="bi bi-broadcast fs-4 text-danger"></i>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Right Section (Image) */}
-                    <div className="col-md-6 text-center mb-4 mb-md-0 order-1 order-md-2">
-                      <img
-                        src={stage3}
-                        alt="Stage 3 Proposal"
-                        className="img-fluid rounded-4 shadow-sm" style={{ width: "80%" }} />
-                    </div>
-                  </div>
                 </div>
               </section>
               <section className="py-5">
@@ -829,76 +724,8 @@ export default function KnowledgeHubDashboard() {
                 </div>
 
                 <div className="container">
-                  <div className="row align-items-center flex-column flex-md-row">
-                    {/* Left Section */}
-                    <div className="col-md-6 order-2 order-md-1">
-                      <h5 className="text-secondary text-start fw-semibold mb-4 ms-2">Stage 4</h5>
+                  <Stage4 />
 
-                      <div className="d-flex flex-column gap-3">
-                        {/* Card 1 */}
-                        <div className="d-flex align-items-center justify-content-between p-3 rounded-4 shadow-sm bg-light">
-                          <div>
-                            <h6 className="fw-bold mb-1 text-dark text-start">Share Agreement</h6>
-                            <p className="mb-0 text-muted small">
-                              Focus on what your business and customers really need.
-                            </p>
-                          </div>
-                          <div
-                            className="rounded-3 d-flex align-items-center justify-content-center"
-                            style={{
-                              width: "50px",
-                              height: "50px",
-                              backgroundColor: "#FFF8CC",
-                            }}
-                          >
-                            <i className="bi bi-lightbulb fs-4 text-warning"></i>
-                          </div>
-
-                        </div>
-
-                        {/* Card 2 */}
-                        <div className="d-flex align-items-center justify-content-between p-3 rounded-4 shadow-sm bg-light">
-                          <div>
-                            <h6 className="fw-bold mb-1 text-dark text-start">Follow Up</h6>
-                            <p className="mb-0 text-muted small">
-                              Spot where the platform can make the biggest impact.
-                            </p>
-                          </div>
-                          <div
-                            className="rounded-3 d-flex align-items-center justify-content-center"
-                            style={{
-                              width: "50px",
-                              height: "50px",
-                              backgroundColor: "#FFE8E5",
-                            }}
-                          >
-                            <i className="bi bi-broadcast fs-4 text-danger"></i>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="text-start mt-4 mx-3 me-4">
-                        <a
-                          href="/pdf/Anantya-Short-Agreement-2025.pdf"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="fw-semibold text-decoration-none text-success me-4"
-                        >
-                          Agreement &rarr;
-                        </a>
-                        <Pdf />
-                      </div>
-
-                    </div>
-
-                    {/* Right Section (Image) */}
-                    <div className="col-md-6 text-center mb-4 mb-md-0 order-1 order-md-2">
-                      <img
-                        src={stage4} // Replace with your actual image
-                        alt="Stage 4 Agreement"
-                        className="img-fluid rounded-4 shadow-sm" style={{ width: "80%" }}
-                      />
-                    </div>
-                  </div>
                 </div>
               </section>
               <div className="container my-5">
@@ -916,68 +743,7 @@ export default function KnowledgeHubDashboard() {
                     </div>
                   </div>
                   <div className="row align-items-center mt-4">
-                    <div className="col-md-6">
-                      <h5 className="text-secondary text-start fw-semibold mb-4 ms-2">Stage 5</h5>
-                      <div className=" mb-3 border-0 shadow-sm p-3 rounded-4">
-                        <div className="d-flex align-items-center justify-content-between">
-
-                          {/* TEXT FIRST */}
-                          <div>
-                            <h6 className="mb-1 fw-bold text-dark text-start">Raise & Share PI</h6>
-                            <p className="mb-0 text-muted small">
-                              Focus on what your business and customers really need.
-                            </p>
-                          </div>
-
-                          {/* ICON LAST */}
-                          <div
-                            className="rounded-3 d-flex align-items-center justify-content-center"
-                            style={{
-                              width: "50px",
-                              height: "50px",
-                              backgroundColor: "#FFF8CC",
-                            }}
-                          >
-                            <i className="bi bi-lightbulb fs-4 text-warning"></i>
-                          </div>
-                        </div>
-                      </div>
-
-
-                      <div className="mb-3 border-0 shadow-sm p-3 rounded-4">
-                        <div className="d-flex align-items-center justify-content-between">
-
-                          {/* TEXT FIRST */}
-                          <div>
-                            <h6 className="mb-1 fw-bold text-dark text-start">Follow Up</h6>
-                            <p className="mb-0 text-muted small">
-                              Spot where the platform can make the biggest impact.
-                            </p>
-                          </div>
-
-                          {/* ICON LAST */}
-                          <div
-                            className="rounded-3 d-flex align-items-center justify-content-center"
-                            style={{
-                              width: "50px",
-                              height: "50px",
-                              backgroundColor: "#FFE8E5",
-                            }}
-                          >
-                            <i className="bi bi-broadcast fs-4 text-danger"></i>
-                          </div>
-                        </div>
-                      </div>
-
-                    </div>
-
-                    <div className="col-md-6 text-center">
-                      <img
-                        src={stage5}
-                        alt="Stage 6 illustration"
-                        className="img-fluid rounded-3" style={{ width: "80%" }}
-                      />
-                    </div>
+                    <Stage5 />
                   </div>
                 </div>
 

@@ -78,7 +78,7 @@ export default function AgreementFormPopup() {
         className="btn btn-success fw-semibold mt-2"
         onClick={() => setShowPopup(true)}
       >
-        Agreement →
+       Create Agreement →
       </button>
 
       {showPopup && (

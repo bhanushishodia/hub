@@ -266,7 +266,7 @@ Best regards,
               src={stage1}
               alt="Lead Management"
               className="img-fluid rounded-4 shadow"
-              style={{ width: "80%" }}
+              style={{ width: "90%" }}
             />
           )}
 

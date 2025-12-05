@@ -5,18 +5,20 @@ import { useState } from "react";
 
 const LeadSidebar = () => {
   const router = useRouter();
-  const [active, setActive] = useState("all");
+  const [active, setActive] = useState("dashboard");
 
   const menu = [
+    { id: "dashboard", label: "Dashboard", icon: "bi-speedometer2", url: "/dashboard-link" },
+
     { id: "all", label: "All Leads", icon: "bi-collection", url: "/leads" },
 
-    { id: "home", label: "Home Page", icon: "bi-house-door", url: "/leads/home" },
+    { id: "website", label: "Website Leads", icon: "bi-globe", url: "/leads/website" },
 
-    { id: "contact", label: "Contact Page", icon: "bi-person-lines-fill", url: "/leads/contact" },
+    { id: "events", label: "Talk To Events", icon: "bi-calendar2-event", url: "/leads/events" },
 
-    { id: "landing", label: "Landing Pages", icon: "bi-window-stack", url: "/leads/landing" },
+    { id: "ads", label: "Ads Leads", icon: "bi-badge-ad", url: "/leads/ads" },
 
-    { id: "partner", label: "Partner Leads", icon: "bi-people-fill", url: "/leads/channel-partner-leads" },
+    { id: "partner", label: "Partner Pages", icon: "bi-people-fill", url: "/leads/partner-pages" },
 
     { id: "other", label: "Other Pages", icon: "bi-grid", url: "/leads/otherpages" },
 
@@ -25,7 +27,6 @@ const LeadSidebar = () => {
     { id: "logout", label: "Logout", icon: "bi-box-arrow-right", url: "/" },
   ];
 
-
   const handleClick = (item) => {
     setActive(item.id);
     router.push(item.url);
@@ -33,10 +34,10 @@ const LeadSidebar = () => {
 
   return (
     <div
-      className="text-white d-flex flex-column align-items-center  sidebar-scroll "
+      className="text-white d-flex flex-column align-items-center sidebar-scroll"
       style={{
         width: "115px",
-        height: "calc(100vh - 64px)", // header 64px fixed
+        height: "calc(100vh - 64px)",
         marginTop: "64px",
         overflowY: "auto",
         background: "#0a4d66",
