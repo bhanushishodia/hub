@@ -40,7 +40,7 @@ const LeadSidebar = () => {
         height: "calc(100vh - 64px)",
         marginTop: "64px",
         overflowY: "auto",
-        background: "#0a4d66",
+        background: "linear-gradient(92.5deg, #0a4763 -.68%, #099e8d 97.14%)"
       }}
     >
       <ul className="nav flex-column w-100">

@@ -2,7 +2,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { getImage } from "../app/utils/getImage";
-const logo = getImage("/custom-logo.png");
+const logo = getImage("/hub-logo.png");
 
 const HubHeader = () => {
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -37,7 +37,7 @@ const HubHeader = () => {
     >
 
       {/* Left: Logo */}
-      <img src={logo} alt="Logo" width="220" style={{ cursor: "pointer" }} />
+      <img src={logo} alt="Logo" width="190" style={{ cursor: "pointer" }} />
 
       {/* Center Title */}
       <div className="fs-5 text-white">

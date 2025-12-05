@@ -265,8 +265,6 @@ export default function KnowledgeHubDashboard() {
     setSearchValue("");
   };
 
-
-
   return (
     <div className="container-fluid p-0">
       {/* ===== STICKY HEADER ===== */}
@@ -400,14 +398,14 @@ export default function KnowledgeHubDashboard() {
       </header>
 
       {/* ===== PAGE CONTENT ===== */}
-      <div className="row g-0 min-vh-100 bg-hub">
+      <div className="row g-0 min-vh-100">
         {/* ===== LEFT SIDEBAR ===== */}
         <div
           className="sidebar d-flex flex-column align-items-center py-0"
           style={{
-            maxWidth: "110px",
-            width: "110px", // fixed width
-            minHeight: "100vh",
+            maxWidth: "115px",
+            width: "115px", // fixed width
+            minHeight: "100vh", background: "linear-gradient(92.5deg, #0a4763 -.68%, #099e8d 97.14%)"
           }}
         >
 
@@ -473,7 +471,7 @@ export default function KnowledgeHubDashboard() {
         <div
           className="main-content px-4 pt-4 text-center flex-grow-1"
           style={{
-            width: "calc(100% - 110px)", // sidebar ke baad bacha space
+            width: "calc(100% - 115px)", // sidebar ke baad bacha space
           }}
         >
           {activeTab === "home" && (
