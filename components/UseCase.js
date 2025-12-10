@@ -5,7 +5,6 @@ import { getImage } from "../app/utils/getImage";
 const travelImg = getImage("hub/Meta-Verified-Integration.jpeg");
 const bfsiImg = getImage("hub/bfsi.jpeg");
 
-
 const IndustriesUseCase = () => {
     const [popupData, setPopupData] = useState({
         show: false,
@@ -143,7 +142,7 @@ const IndustriesUseCase = () => {
                             ×
                         </button>
 
-                        <h5 className="popup-title text-dark ">{popupData.title}</h5>
+                        <h5 className="popup-title text-dark">{popupData.title}</h5>
 
                         {/* 1️⃣ Decks */}
                         {popupData.type === "Decks" && (
@@ -312,7 +311,7 @@ const IndustriesUseCase = () => {
                                                 />
                                             </div>
 
-                                            <h6 className="mb-0">{item}</h6>
+                                            <h6 className="mb-0 text-white">{item}</h6>
                                         </div>
                                     </div>
                                 )
