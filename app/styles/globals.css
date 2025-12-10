@@ -1889,7 +1889,7 @@ h2 span {
     opacity: 1;
     transform: translateY(0);
   }
-}
+} 
 .copy-btn {
   font-size: 13px;
   padding: 6px 12px;
@@ -2030,4 +2030,62 @@ h2 span {
 }
 .sidesmall{
     font-size: 10px!important;
+}
+
+.d-flex.flex-column > .d-flex {
+ overflow: hidden; 
+}
+
+.d-flex.flex-column > .d-flex > .container {
+  height: 100%;
+  overflow-y: auto; /* ✅ ONLY RIGHT SIDE SCROLL */
+} 
+
+.d-flex.flex-column > .d-flex > .container::-webkit-scrollbar {
+  display: none;
+}
+
+.d-flex.flex-column > .d-flex > .container {
+  scrollbar-width: none; /* Firefox */
+}
+
+
+.divider-container {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 0px 0; /* top-bottom spacing */
+width: 75%;
+}
+
+.divider-line {
+  flex-grow: 1; /* line full width le lega */
+  height: 2px; /* line height */
+ background-color: rgba(219, 219, 219, 1);
+}
+
+.divider-text {
+  padding: 0 15px; /* text ke around spacing */
+  color: #666;
+  font-weight: 500;
+  font-size: 14px;
+  white-space: nowrap; /* line break nahi hone dena */
+}
+
+
+.btn-google {
+  width: auto;           /* button apne content ke according chhota rahe */
+  padding: 0.4rem 1rem;  /* thoda chhota padding */
+  text-align: center;    
+  border-radius: 5px;
+  border: 1px solid #ccc; /* simple red border */
+  color: #000;        /* text color red */
+  background-color: transparent; /* default background transparent */
+  transition: background-color 0.3s, color 0.3s; /* smooth hover */
+}
+
+.btn-google:hover {
+      background-color: light-dark(rgb(232, 240, 254)); 
+  color: #000;                /* hover par text red rahe */
+  border-color: #ccc;         /* border red rahe */
 }

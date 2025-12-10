@@ -8,7 +8,7 @@ const LeadSidebar = () => {
   const [active, setActive] = useState("dashboard");
 
   const menu = [
-    { id: "dashboard", label: "Dashboard", icon: "bi-speedometer2", url: "/dashboard-link" },
+    { id: "dashboard", label: "Dashboard", icon: "bi-speedometer2", url: "./dash" },
 
     { id: "all", label: "All Leads", icon: "bi-collection", url: "/leads" },
 

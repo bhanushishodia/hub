@@ -1,7 +1,7 @@
-
 "use client"; // required for client-side hooks in app/ directory
 import React, { useState, useRef, useEffect } from "react";
 import UseCase from "@/components/UseCase";
+import { useSession, signOut } from "next-auth/react";
 import { getImage } from "../utils/getImage";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import EventSlider from "@/components/EventSlider";
@@ -150,23 +150,46 @@ const blogCards = [
 ];
 
 export default function KnowledgeHubDashboard() {
-
   const router = useRouter();
+  const { data: session, status } = useSession();
   const [isFullscreen, setIsFullscreen] = useState(false);
   const fullRef = useRef(null);
 
+  const [activeTab, setActiveTab] = useState("home");
+  const [isPlaying, setIsPlaying] = useState(false); // State to control video playback
+  const [searchValue, setSearchValue] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+
+
+  // ✅ check local login cookie
+  const hasLocalAuth =
+    typeof document !== "undefined" &&
+    document.cookie.includes("localAuth=true");
+  useEffect(() => {
+    import("bootstrap/dist/js/bootstrap.bundle.min.js");
+  }, []);
+
+  useEffect(() => {
+    //  allow Google OR local login
+    if (status === "unauthenticated" && !hasLocalAuth) {
+      router.push("/");
+    }
+  }, [status, hasLocalAuth, router]);
+
+  //  loader only for google auth
+
+  //  loader only for google auth
+  if (status === "loading") return null;
+
+  //  block rendering if no auth at all
+  if (!session && !hasLocalAuth) return null;
+
   const handleLogout = () => {
-    // Delete cookies
-    document.cookie = "user=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-    document.cookie = "role=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-
-    // Optional: delete remember me
-    localStorage.removeItem("username");
-    localStorage.removeItem("password");
-
-    // Redirect to login
-    router.push("/");
+    //  clear local auth too
+    document.cookie = "localAuth=; Max-Age=0; path=/";
+    signOut({ callbackUrl: "/" });
   };
+
 
 
   const toggleFullscreen = () => {
@@ -180,17 +203,14 @@ export default function KnowledgeHubDashboard() {
       }
     }
   };
-  useEffect(() => {
-    import("bootstrap/dist/js/bootstrap.bundle.min.js");
-  }, []);
+
 
 
   const logo = getImage("hub-logo.png");
   const hubImage = getImage("hub-main.png");
   const meta = getImage("/whatsapp-pricing/Meta.png");
 
-  const [activeTab, setActiveTab] = useState("home");
-  const [isPlaying, setIsPlaying] = useState(false); // State to control video playback
+
   const handlePlay = () => {
     setIsPlaying(true);
   };
@@ -215,8 +235,7 @@ export default function KnowledgeHubDashboard() {
   ];
 
 
-  const [searchValue, setSearchValue] = useState("");
-  const [suggestions, setSuggestions] = useState([]);
+
 
   // When typing in input
   const handleSearch = (e) => {
@@ -377,9 +396,6 @@ export default function KnowledgeHubDashboard() {
               <line x1="21" y1="12" x2="9" y2="12" />
             </svg>
           </button>
-
-
-
         </div>
 
 

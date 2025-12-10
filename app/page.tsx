@@ -2,21 +2,15 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { getImage } from "./utils/getImage";
+import { signIn } from "next-auth/react";
+
 const logo = getImage("hub-logo.png");
 const login = getImage("login-hub.png");
 
 // ✔️ Multiple Users with Roles
 const USERS = [
-  {
-    email: "admin@anantya.ai",
-    password: "Yashika@018",
-    role: "admin",
-  },
-  {
-    email: "user@anantya.ai",
-    password: "Anantya@789",
-    role: "user",
-  },
+  { email: "admin@anantya.ai", password: "Yashika@018", role: "admin" },
+  { email: "user@anantya.ai", password: "Anantya@789", role: "user" },
 ];
 
 export default function KnowledgeHubLogin() {
@@ -25,14 +19,30 @@ export default function KnowledgeHubLogin() {
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
   const router = useRouter();
 
-  // ✔️ Bootstrap JS load only on client
+  // ✔️ Bootstrap JS
   useEffect(() => {
     require("bootstrap/dist/js/bootstrap.bundle.min.js");
   }, []);
 
-  // ✔️ Load Remember Me
+
+  // ✔️ Google Auth Error Handling
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const error = params.get("error");
+
+    if (error === "AccessDenied") {
+      setErrorMessage("Only @anantya.ai email IDs are allowed.");
+      window.history.replaceState(null, "", "/");
+    }
+  }, []);
+
+
+
+
+  // ✔️ Remember Me
   useEffect(() => {
     const savedUsername = localStorage.getItem("username");
     const savedPassword = localStorage.getItem("password");
@@ -51,24 +61,30 @@ export default function KnowledgeHubLogin() {
       (u) => u.email === username && u.password === password
     );
 
-    if (matchedUser) {
-      if (rememberMe) {
-        localStorage.setItem("username", username);
-        localStorage.setItem("password", password);
-      } else {
-        localStorage.removeItem("username");
-        localStorage.removeItem("password");
-      }
-
-      document.cookie = `user=${matchedUser.email}; path=/`;
-      document.cookie = `role=${matchedUser.role}; path=/`;
-
-
-      router.push("/dashboard");
-    } else {
+    if (!matchedUser) {
       setErrorMessage("Invalid username or password. Please try again.");
+      return;
     }
+
+    if (rememberMe) {
+      localStorage.setItem("username", username);
+      localStorage.setItem("password", password);
+    } else {
+      localStorage.removeItem("username");
+      localStorage.removeItem("password");
+    }
+
+    // Set user info cookies
+    document.cookie = `user=${matchedUser.email}; path=/`;
+    document.cookie = `role=${matchedUser.role}; path=/`;
+
+    // ✅ Optional: mark local login session
+    document.cookie = `localAuth=true; path=/`;
+
+    // Redirect to dashboard
+    router.push("/dashboard");
   };
+
 
   // Icons
   const EyeIcon = (
@@ -110,6 +126,7 @@ export default function KnowledgeHubLogin() {
         </h4>
 
         <form onSubmit={handleLogin} className="p-4 rounded w-100" style={{ maxWidth: "400px" }}>
+
 
           <div className="mb-3">
             <label className="form-label">User Name</label>
@@ -168,9 +185,27 @@ export default function KnowledgeHubLogin() {
           </button>
 
         </form>
-        <div className="small version-text mt-3 text-dark fw-semibold muted small">Version 1.0.2
+
+        <div className="divider-container">
+          <div className="divider-line"></div>
+          <div className="divider-text">Or continue </div>
+          <div className="divider-line"></div>
+        </div>
+        <button
+          className="btn btn-google mt-3"
+          onClick={() =>
+            signIn("google", {
+              callbackUrl: "/dashboard",
+            })
+          }
+        >
+          Sign in with Google
+        </button>
+
+
+        <div className="small version-text mt-3 text-dark fw-semibold muted small">Version 1.0.3
         </div>
       </div>
     </div>
   );
-}
+} 
