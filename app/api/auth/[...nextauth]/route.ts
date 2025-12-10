@@ -1,4 +1,3 @@
-// app/api/auth/[...nextauth]/route.ts
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
@@ -12,13 +11,31 @@ const handler = NextAuth({
 
   callbacks: {
     async signIn({ user }) {
-      // ✅ only domain check
-      return !!user.email?.endsWith("@anantya.ai");
+      // ✅ ONLY anantya.ai allowed
+      if (user.email?.endsWith("@anantya.ai")) {
+        return true;
+      }
+      return false;
     },
-  },
 
-  pages: {
-    signIn: "/",
+    async jwt({ token, user }) {
+      if (user?.email) {
+        token.role = user.email === "admin@anantya.ai" ? "admin" : "user";
+      }
+      return token;
+    },
+
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.role = token.role as string;
+      }
+      return session;
+    },
+
+    async redirect() {
+      // ✅ ALWAYS dashboard
+      return "/dashboard";
+    },
   },
 });
 
