@@ -1,5 +1,12 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
+
+// ✅ Manual users
+const USERS = [
+  { email: "admin@anantya.ai", password: "Yashika@018", role: "admin" },
+  { email: "user@anantya.ai", password: "Anantya@789", role: "user" },
+];
 
 const handler = NextAuth({
   providers: [
@@ -7,35 +14,55 @@ const handler = NextAuth({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
+    CredentialsProvider({
+      name: "Credentials",
+      credentials: {
+        email: { label: "Email", type: "text" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials) {
+        const user = USERS.find(
+          (u) =>
+            u.email === credentials?.email &&
+            u.password === credentials?.password
+        );
+        if (!user) return null;
+        return { id: user.email, email: user.email, role: user.role };
+      },
+    }),
   ],
 
   callbacks: {
+    // ✅ Google + manual login allow only @anantya.ai
     async signIn({ user }) {
-      // ✅ ONLY anantya.ai allowed
-      if (user.email?.endsWith("@anantya.ai")) {
-        return true;
-      }
+      if (user.email?.endsWith("@anantya.ai")) return true;
       return false;
     },
 
+    // ✅ JWT: set role
     async jwt({ token, user }) {
-      if (user?.email) {
-        token.role = user.email === "admin@anantya.ai" ? "admin" : "user";
-      }
+      if (user) token.role = (user as any).role || "user";
       return token;
     },
 
+    // ✅ Session: expose role
     async session({ session, token }) {
-      if (session.user) {
-        session.user.role = token.role as string;
-      }
+      if (session.user) session.user.role = token.role as string;
       return session;
     },
 
-    async redirect() {
-      // ✅ ALWAYS dashboard
-      return "/dashboard";
+    // ✅ Always redirect to dashboard
+    async redirect({ baseUrl }) {
+      return `${baseUrl}/dashboard`;
     },
+  },
+
+  session: {
+    strategy: "jwt",
+  },
+
+  pages: {
+    signIn: "/login", // tumhara login page
   },
 });
 

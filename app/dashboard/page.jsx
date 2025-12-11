@@ -169,20 +169,12 @@ export default function KnowledgeHubDashboard() {
     import("bootstrap/dist/js/bootstrap.bundle.min.js");
   }, []);
 
-useEffect(() => {
-  // ✅ Allow if either Google session OR local login exists
-  if (status === "unauthenticated" && !hasLocalAuth) {
-    router.push("/");
-  }
-}, [status, hasLocalAuth, router]);
-
-// ✅ Stop rendering until auth decision
-if (status === "loading") return null;
-
-// ✅ Block page completely if not authenticated
-if (status === "unauthenticated" && !hasLocalAuth) return null;
-
-
+  useEffect(() => {
+    //  allow Google OR local login
+    if (status === "unauthenticated" && !hasLocalAuth) {
+      router.push("/");
+    }
+  }, [status, hasLocalAuth, router]);
 
   //  loader only for google auth
 

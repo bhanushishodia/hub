@@ -54,36 +54,23 @@ export default function KnowledgeHubLogin() {
     }
   }, []);
 
-  const handleLogin = (e: any) => {
+  const handleLogin = async (e: any) => {
     e.preventDefault();
 
-    const matchedUser = USERS.find(
-      (u) => u.email === username && u.password === password
-    );
+    const result = await signIn("credentials", {
+      redirect: false,
+      email: username,
+      password: password,
+    });
 
-    if (!matchedUser) {
-      setErrorMessage("Invalid username or password. Please try again.");
+    if (result?.error) {
+      setErrorMessage("Invalid username or password, please try again.");
       return;
     }
 
-    if (rememberMe) {
-      localStorage.setItem("username", username);
-      localStorage.setItem("password", password);
-    } else {
-      localStorage.removeItem("username");
-      localStorage.removeItem("password");
-    }
-
-    // Set user info cookies
-    document.cookie = `user=${matchedUser.email}; path=/`;
-    document.cookie = `role=${matchedUser.role}; path=/`;
-
-    // ✅ Optional: mark local login session
-    document.cookie = `localAuth=true; path=/`;
-
-    // Redirect to dashboard
     router.push("/dashboard");
   };
+
 
 
   // Icons
@@ -125,7 +112,7 @@ export default function KnowledgeHubLogin() {
           Explore the Knowledge Hub
         </h4>
 
-        <form onSubmit={handleLogin} className="p-4 rounded w-100" style={{ maxWidth: "400px" }}>
+        <form onSubmit={handleLogin} className="pb-4 px-3 rounded w-100" style={{ maxWidth: "400px" }}>
 
 
           <div className="mb-3">
