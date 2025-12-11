@@ -65,8 +65,6 @@ const handler = NextAuth({
     async redirect({ baseUrl }) {
       return `${baseUrl}/dashboard`;
     },
-
-
   },
 
   session: {
@@ -108,3 +106,6 @@ const handler = NextAuth({
 
 
 export { handler as GET, handler as POST };
+
+
+// new updated 
