@@ -55,16 +55,16 @@ const handler = NextAuth({
     async redirect({ baseUrl }) {
       return `${baseUrl}/dashboard`;
     },
-// async redirect({ url, baseUrl }) {
-//   // Allow proper Google callback processing
-//   if (url.startsWith("/api/auth/callback")) {
-//     return baseUrl;
-//   }
+    // async redirect({ url, baseUrl }) {
+    //   // Allow proper Google callback processing
+    //   if (url.startsWith("/api/auth/callback")) {
+    //     return baseUrl;
+    //   }
 
-//   return `${baseUrl}/dashboard`;
-// }
+    //   return `${baseUrl}/dashboard`;
+    // }
 
-},
+  },
 
   session: {
     strategy: "jwt",
@@ -73,10 +73,10 @@ const handler = NextAuth({
   pages: {
     signIn: "/login", // tumhara login page
   },
- // 🔥 ADD THIS FOR PRODUCTION COOKIE FIX
- cookies:
-  process.env.NODE_ENV === "production"
-    ? {
+  // 🔥 ADD THIS FOR PRODUCTION COOKIE FIX
+  cookies:
+    process.env.NODE_ENV === "production"
+      ? {
         sessionToken: {
           name: "__Secure-next-auth.session-token",
           options: {
@@ -84,10 +84,12 @@ const handler = NextAuth({
             secure: true,
             sameSite: "none",
             path: "/",
+            domain: "knowledge-hub.anantya.ai", // add domain for cross-device login
           },
         },
       }
-    : {
+
+      : {
         sessionToken: {
           name: "next-auth.session-token",
           options: {
