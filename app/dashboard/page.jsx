@@ -160,36 +160,37 @@ export default function KnowledgeHubDashboard() {
   const [searchValue, setSearchValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
 
-const hasLocalAuth =
-  typeof document !== "undefined" &&
-  document.cookie.includes("localAuth=true");
+ // ✅ Check local manual login cookie
+  const [hasLocalAuth, setHasLocalAuth] = useState(false);
 
-useEffect(() => {
-  import("bootstrap/dist/js/bootstrap.bundle.min.js");
-}, []);
+  useEffect(() => {
+    import("bootstrap/dist/js/bootstrap.bundle.min.js");
 
-useEffect(() => {
-  // allow Google OR local login
-  if (status === "unauthenticated" && !hasLocalAuth) {
-    router.push("/");
-  }
-}, [status, hasLocalAuth, router]);
+    // Check localAuth cookie on client side
+    const cookieCheck =
+      typeof document !== "undefined" &&
+      document.cookie.includes("localAuth=true");
+    setHasLocalAuth(cookieCheck);
+  }, []);
 
+  // ✅ Redirect if not logged in (Google or manual)
+  useEffect(() => {
+    if (status === "unauthenticated" && !hasLocalAuth) {
+      router.push("/login");
+    }
+  }, [status, hasLocalAuth, router]);
 
-  //  loader only for google auth
-
-  //  loader only for google auth
-  if (status === "loading") return null;
-
-  //  block rendering if no auth at all
-  if (!session && !hasLocalAuth) return null;
+  // ⭐ Block rendering until auth is confirmed
+  if (status === "loading") return null; // still checking session
+  if (!session && !hasLocalAuth) return null; // no auth
 
   const handleLogout = () => {
-     document.cookie = "localAuth=; Max-Age=0; path=/";
- 
-    signOut({ callbackUrl: "/" });
-  };
+    // Clear manual login cookie
+    document.cookie = "localAuth=; Max-Age=0; path=/";
 
+    // Sign out Google session if any
+    signOut({ callbackUrl: "/login" });
+  };
   const toggleFullscreen = () => {
     if (typeof document !== "undefined") {
       if (!document.fullscreenElement) {
