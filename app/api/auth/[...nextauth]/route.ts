@@ -34,8 +34,18 @@ const handler = NextAuth({
 
   callbacks: {
     // ✅ Google + manual login allow only @anantya.ai
-    async signIn({ user }) {
-      if (user.email?.endsWith("@anantya.ai")) return true;
+    async signIn({ user, account }) {
+      // ✔️ If login is manual (credentials) → allow any email
+      if (account?.provider === "credentials") {
+        return true;
+      }
+
+      // ✔️ If login is Google → allow only @anantya.ai emails
+      if (account?.provider === "google") {
+        if (user.email?.endsWith("@anantya.ai")) return true;
+        return false; // ❌ deny non-anantya emails
+      }
+
       return false;
     },
 
@@ -55,14 +65,7 @@ const handler = NextAuth({
     async redirect({ baseUrl }) {
       return `${baseUrl}/dashboard`;
     },
-    // async redirect({ url, baseUrl }) {
-    //   // Allow proper Google callback processing
-    //   if (url.startsWith("/api/auth/callback")) {
-    //     return baseUrl;
-    //   }
 
-    //   return `${baseUrl}/dashboard`;
-    // }
 
   },
 
