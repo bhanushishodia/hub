@@ -160,21 +160,21 @@ export default function KnowledgeHubDashboard() {
   const [searchValue, setSearchValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
 
+const hasLocalAuth =
+  typeof document !== "undefined" &&
+  document.cookie.includes("localAuth=true");
 
-  // ✅ check local login cookie
-  const hasLocalAuth =
-    typeof document !== "undefined" &&
-    document.cookie.includes("localAuth=true");
-  useEffect(() => {
-    import("bootstrap/dist/js/bootstrap.bundle.min.js");
-  }, []);
+useEffect(() => {
+  import("bootstrap/dist/js/bootstrap.bundle.min.js");
+}, []);
 
-  useEffect(() => {
-    //  allow Google OR local login
-    if (status === "unauthenticated" && !hasLocalAuth) {
-      router.push("/");
-    }
-  }, [status, hasLocalAuth, router]);
+useEffect(() => {
+  // allow Google OR local login
+  if (status === "unauthenticated" && !hasLocalAuth) {
+    router.push("/");
+  }
+}, [status, hasLocalAuth, router]);
+
 
   //  loader only for google auth
 

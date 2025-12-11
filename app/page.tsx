@@ -54,29 +54,46 @@ export default function KnowledgeHubLogin() {
     }
   }, []);
 
- const handleLogin = async (e: any) => {
+const handleLogin = async (e: any) => {
   e.preventDefault();
 
-  // ✔ Pass correct field names
   const result = await signIn("credentials", {
     redirect: false,
     email: username,
     password: password,
   });
 
-  console.log("SignIn Result:", result); // ✅ debug
+  console.log("SignIn Result:", result); // Debug
 
+  // ❌ Invalid credentials → show error
   if (result?.error) {
-    setErrorMessage(result.error || "Invalid username or password, please try again.");
+    setErrorMessage("Invalid username or password.");
     return;
   }
 
+  // ✅ Login successful
   if (result?.ok) {
+
+    // 👉 Remember Me
+    if (rememberMe) {
+      localStorage.setItem("username", username);
+      localStorage.setItem("password", password);
+    } else {
+      localStorage.removeItem("username");
+      localStorage.removeItem("password");
+    }
+
+    // ⭐ MOST IMPORTANT FIX ⭐
+    // 👉 Manual login ke liye cookie set karna zaroori hai
+    document.cookie = "localAuth=true; path=/";
+
     router.push("/dashboard");
-  } else {
-    setErrorMessage("Login failed, please check your credentials.");
+    return;
   }
+
+  setErrorMessage("Login failed, please try again.");
 };
+
 
 
   // Icons
