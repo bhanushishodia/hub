@@ -160,37 +160,46 @@ export default function KnowledgeHubDashboard() {
   const [searchValue, setSearchValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
 
- // ✅ Check local manual login cookie
-  const [hasLocalAuth, setHasLocalAuth] = useState(false);
 
+  // ✅ check local login cookie
+  const hasLocalAuth =
+    typeof document !== "undefined" &&
+    document.cookie.includes("localAuth=true");
   useEffect(() => {
     import("bootstrap/dist/js/bootstrap.bundle.min.js");
-
-    // Check localAuth cookie on client side
-    const cookieCheck =
-      typeof document !== "undefined" &&
-      document.cookie.includes("localAuth=true");
-    setHasLocalAuth(cookieCheck);
   }, []);
 
-  // ✅ Redirect if not logged in (Google or manual)
-  useEffect(() => {
-    if (status === "unauthenticated" && !hasLocalAuth) {
-      router.push("/");
-    }
-  }, [status, hasLocalAuth, router]);
+useEffect(() => {
+  // ✅ Allow if either Google session OR local login exists
+  if (status === "unauthenticated" && !hasLocalAuth) {
+    router.push("/");
+  }
+}, [status, hasLocalAuth, router]);
 
-  // ⭐ Block rendering until auth is confirmed
-  if (status === "loading") return null; // still checking session
-  if (!session && !hasLocalAuth) return null; // no auth
+// ✅ Stop rendering until auth decision
+if (status === "loading") return null;
+
+// ✅ Block page completely if not authenticated
+if (status === "unauthenticated" && !hasLocalAuth) return null;
+
+
+
+  //  loader only for google auth
+
+  //  loader only for google auth
+  if (status === "loading") return null;
+
+  //  block rendering if no auth at all
+  if (!session && !hasLocalAuth) return null;
 
   const handleLogout = () => {
-    // Clear manual login cookie
+    //  clear local auth too
     document.cookie = "localAuth=; Max-Age=0; path=/";
-
-    // Sign out Google session if any
     signOut({ callbackUrl: "/" });
   };
+
+
+
   const toggleFullscreen = () => {
     if (typeof document !== "undefined") {
       if (!document.fullscreenElement) {

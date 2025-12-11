@@ -54,27 +54,18 @@ export default function KnowledgeHubLogin() {
     }
   }, []);
 
-const handleLogin = async (e: any) => {
-  e.preventDefault();
+  const handleLogin = (e: any) => {
+    e.preventDefault();
 
-  const result = await signIn("credentials", {
-    redirect: false,
-    email: username,
-    password: password,
-  });
+    const matchedUser = USERS.find(
+      (u) => u.email === username && u.password === password
+    );
 
-  console.log("SignIn Result:", result); // Debug
+    if (!matchedUser) {
+      setErrorMessage("Invalid username or password. Please try again.");
+      return;
+    }
 
-  // ❌ Invalid credentials → show error
-  if (result?.error) {
-    setErrorMessage("Invalid username or password.");
-    return;
-  }
-
-  // ✅ Login successful
-  if (result?.ok) {
-
-    // 👉 Remember Me
     if (rememberMe) {
       localStorage.setItem("username", username);
       localStorage.setItem("password", password);
@@ -83,17 +74,16 @@ const handleLogin = async (e: any) => {
       localStorage.removeItem("password");
     }
 
-    // ⭐ MOST IMPORTANT FIX ⭐
-    // 👉 Manual login ke liye cookie set karna zaroori hai
-    document.cookie = "localAuth=true; path=/";
+    // Set user info cookies
+    document.cookie = `user=${matchedUser.email}; path=/`;
+    document.cookie = `role=${matchedUser.role}; path=/`;
 
+    // ✅ Optional: mark local login session
+    document.cookie = `localAuth=true; path=/`;
+
+    // Redirect to dashboard
     router.push("/dashboard");
-    return;
-  }
-
-  setErrorMessage("Login failed, please try again.");
-};
-
+  };
 
 
   // Icons
@@ -135,14 +125,13 @@ const handleLogin = async (e: any) => {
           Explore the Knowledge Hub
         </h4>
 
-        <form onSubmit={handleLogin} className="pb-4 px-3 rounded w-100" style={{ maxWidth: "400px" }}>
+        <form onSubmit={handleLogin} className="p-4 rounded w-100" style={{ maxWidth: "400px" }}>
 
 
           <div className="mb-3">
             <label className="form-label">User Name</label>
             <input
               type="text"
-              name="email"   // ✅ Add this
               className="form-control"
               placeholder="Enter your username"
               value={username}
@@ -157,7 +146,6 @@ const handleLogin = async (e: any) => {
               <input
                 type={showPassword ? "text" : "password"}
                 className="form-control"
-                name="password"   // ✅ Add this
                 placeholder="Enter your password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -215,7 +203,7 @@ const handleLogin = async (e: any) => {
         </button>
 
 
-        <div className="small version-text mt-3 text-dark fw-semibold muted small">Version 1.0.4
+        <div className="small version-text mt-3 text-dark fw-semibold muted small">Version 1.0.3
         </div>
       </div>
     </div>
