@@ -190,8 +190,6 @@ export default function KnowledgeHubDashboard() {
     signOut({ callbackUrl: "/" });
   };
 
-
-
   const toggleFullscreen = () => {
     if (typeof document !== "undefined") {
       if (!document.fullscreenElement) {
