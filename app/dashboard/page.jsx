@@ -185,6 +185,7 @@ export default function KnowledgeHubDashboard() {
   if (!session && !hasLocalAuth) return null;
 
   const handleLogout = () => {
+     document.cookie = "localAuth=; Max-Age=0; path=/";
  
     signOut({ callbackUrl: "/" });
   };
