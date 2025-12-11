@@ -198,15 +198,29 @@ if (status === "unauthenticated" && !hasLocalAuth) return null;
   //   signOut({ callbackUrl: "/" });
   // };
 
-  const handleLogout = async () => {
-  document.cookie =
-    "localAuth=; Max-Age=0; path=/; SameSite=Lax; Secure";
+//   const handleLogout = async () => {
+//   document.cookie =
+//     "localAuth=; Max-Age=0; path=/; SameSite=Lax; Secure";
 
+//   await signOut({ redirect: false });
+//   window.location.href = "/";
+// };
+
+const handleLogout = async () => {
+  // ❌ Delete local login cookies
+  document.cookie = "localAuth=; Max-Age=0; path=/; SameSite=Lax; Secure";
+  document.cookie = "role=; Max-Age=0; path=/; SameSite=Lax; Secure";
+
+  // ❌ Delete username/password remember storage
+  localStorage.removeItem("username");
+  localStorage.removeItem("password");
+
+  // ❌ NextAuth logout (removes Google session)
   await signOut({ redirect: false });
+
+  // Redirect to login
   window.location.href = "/";
 };
-
-
 
   const toggleFullscreen = () => {
     if (typeof document !== "undefined") {
