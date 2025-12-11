@@ -142,6 +142,7 @@ const handleLogin = async (e: any) => {
             <label className="form-label">User Name</label>
             <input
               type="text"
+              name="email"   // ✅ Add this
               className="form-control"
               placeholder="Enter your username"
               value={username}
@@ -156,6 +157,7 @@ const handleLogin = async (e: any) => {
               <input
                 type={showPassword ? "text" : "password"}
                 className="form-control"
+                name="password"   // ✅ Add this
                 placeholder="Enter your password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
