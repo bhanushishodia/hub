@@ -192,11 +192,19 @@ if (status === "unauthenticated" && !hasLocalAuth) return null;
   //  block rendering if no auth at all
   if (!session && !hasLocalAuth) return null;
 
-  const handleLogout = () => {
-    //  clear local auth too
-    document.cookie = "localAuth=; Max-Age=0; path=/";
-    signOut({ callbackUrl: "/" });
-  };
+  // const handleLogout = () => {
+  //   //  clear local auth too
+  //   document.cookie = "localAuth=; Max-Age=0; path=/";
+  //   signOut({ callbackUrl: "/" });
+  // };
+
+  const handleLogout = async () => {
+  document.cookie =
+    "localAuth=; Max-Age=0; path=/; SameSite=Lax; Secure";
+
+  await signOut({ redirect: false });
+  window.location.href = "/";
+};
 
 
 
