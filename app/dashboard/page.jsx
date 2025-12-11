@@ -176,7 +176,7 @@ export default function KnowledgeHubDashboard() {
   // ✅ Redirect if not logged in (Google or manual)
   useEffect(() => {
     if (status === "unauthenticated" && !hasLocalAuth) {
-      router.push("/login");
+      router.push("/");
     }
   }, [status, hasLocalAuth, router]);
 
@@ -189,7 +189,7 @@ export default function KnowledgeHubDashboard() {
     document.cookie = "localAuth=; Max-Age=0; path=/";
 
     // Sign out Google session if any
-    signOut({ callbackUrl: "/login" });
+    signOut({ callbackUrl: "/" });
   };
   const toggleFullscreen = () => {
     if (typeof document !== "undefined") {

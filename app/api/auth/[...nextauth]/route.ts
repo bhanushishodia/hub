@@ -3,10 +3,12 @@ import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 // Manual users
+// Manual users
 const USERS = [
   { email: "admin@anantya.ai", password: "Yashika@018", role: "admin" },
   { email: "user@anantya.ai", password: "Anantya@789", role: "user" },
 ];
+
 
 const handler = NextAuth({
   providers: [
@@ -20,45 +22,50 @@ const handler = NextAuth({
         email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
-   async authorize(credentials) {
-  if (!credentials) return null;
-  const user = USERS.find(
-    (u) => u.email === credentials.email && u.password === credentials.password
-  );
-  if (!user) return null;
-  return { id: user.email, email: user.email, role: user.role };
-}
+      async authorize(credentials) {
+        if (!credentials) return null;
 
+        const user = USERS.find(
+          (u) => u.email === credentials.email && u.password === credentials.password
+        );
+
+        if (!user) return null;
+
+        return { id: user.email, email: user.email, role: user.role };
+      },
     }),
   ],
 
   callbacks: {
+    // ✅ Sign in rules
     async signIn({ user, account }) {
-      // Manual login → allow any user
-      if (!account || account.provider === "credentials") {
-        return true;
-      }
+      // Manual login → always allow
+      if (!account || account.provider === "credentials") return true;
 
-      // Google login → only @anantya.ai
+      // Google login → only @anantya.ai emails
       if (account.provider === "google") {
-        if (user.email?.endsWith("@anantya.ai")) return true;
-        return false;
+        return user.email?.endsWith("@anantya.ai") ?? false;
       }
 
       return false;
     },
 
+    // ✅ Add role to JWT token
     async jwt({ token, user }) {
       if (user) token.role = (user as any).role || "user";
       return token;
     },
 
+    // ✅ Add role to session
     async session({ session, token }) {
       if (session.user) session.user.role = token.role as string;
       return session;
     },
 
-    async redirect({ baseUrl }) {
+    // ✅ Redirect after login
+    async redirect({ baseUrl, url }) {
+      // If login via credentials or Google → dashboard
+      if (url.includes("/dashboard")) return url;
       return `${baseUrl}/dashboard`;
     },
   },
@@ -68,7 +75,7 @@ const handler = NextAuth({
   },
 
   pages: {
-    signIn: "/login",
+    signIn: "/login", // Custom login page
   },
 
   cookies:
@@ -96,6 +103,9 @@ const handler = NextAuth({
             },
           },
         },
+
+  // ✅ Optional debug for dev
+  debug: process.env.NODE_ENV !== "production",
 });
 
 export { handler as GET, handler as POST };
