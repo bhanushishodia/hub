@@ -54,22 +54,30 @@ export default function KnowledgeHubLogin() {
     }
   }, []);
 
-  const handleLogin = async (e: any) => {
-    e.preventDefault();
+ const handleLogin = async (e: any) => {
+  e.preventDefault();
 
-    const result = await signIn("credentials", {
-      redirect: false,
-      email: username,
-      password: password,
-    });
+  // ✔ Pass correct field names
+  const result = await signIn("credentials", {
+    redirect: false,
+    email: username,
+    password: password,
+  });
 
-    if (result?.error) {
-      setErrorMessage("Invalid username or password, please try again.");
-      return;
-    }
+  console.log("SignIn Result:", result); // ✅ debug
 
+  if (result?.error) {
+    setErrorMessage(result.error || "Invalid username or password, please try again.");
+    return;
+  }
+
+  if (result?.ok) {
     router.push("/dashboard");
-  };
+  } else {
+    setErrorMessage("Login failed, please check your credentials.");
+  }
+};
+
 
   // Icons
   const EyeIcon = (

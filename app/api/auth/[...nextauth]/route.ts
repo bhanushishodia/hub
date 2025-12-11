@@ -20,16 +20,15 @@ const handler = NextAuth({
         email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials) {
-        if (!credentials) return null;
-        const user = USERS.find(
-          (u) =>
-            u.email === credentials.email &&
-            u.password === credentials.password
-        );
-        if (!user) return null;
-        return { id: user.email, email: user.email, role: user.role };
-      },
+   async authorize(credentials) {
+  if (!credentials) return null;
+  const user = USERS.find(
+    (u) => u.email === credentials.email && u.password === credentials.password
+  );
+  if (!user) return null;
+  return { id: user.email, email: user.email, role: user.role };
+}
+
     }),
   ],
 
