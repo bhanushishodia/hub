@@ -14,7 +14,9 @@ export default function PartnerLeadsPage() {
 
 
   //  const API_URL_PARTNER = "http://localhost:4000/api/partner";
-   const API_URL_PARTNER = "https://knowledge-hub.anantya.ai/api/partner";
+
+   const API_URL_PARTNER = "https://hub-backend-tv3v.onrender.com/api/partner";
+
    
 
   // Fetch partner leads

@@ -14,8 +14,9 @@ export default function LeadsPage() {
   const [error, setError] = useState("");
 
 //   const API_URL_LEADS = "http://localhost:4000/api/leads";
-  const API_URL_LEADS = "https://knowledge-hub.anantya.ai/api/leads";
 
+  const API_URL_LEADS = "https://hub-backend-tv3v.onrender.com/api/leads";
+  
   // Fetch leads
   const fetchLeads = async () => {
     try {
