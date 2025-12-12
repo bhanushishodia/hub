@@ -1,32 +1,33 @@
-"use client"; // <- ye line top par add karni hai
+"use client"; // <- important for Next.js app directory
 import React, { useEffect, useState } from "react";
 import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
 import { Dropdown } from "react-bootstrap";
 import { FaEllipsisV } from "react-icons/fa";
 
-
-export default function LeadsPage() {
-  const [leads, setLeads] = useState([]);
+export default function PartnerLeadsPage() {
+  const [leads, setLeads] = useState([]); 
   const [filtered, setFiltered] = useState([]);
   const [filterDate, setFilterDate] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-//   const API_URL_LEADS = "http://localhost:4000/api/leads";
-  const API_URL_LEADS = "https://knowledge-hub.anantya.ai/api/leads";
 
-  // Fetch leads
+  //  const API_URL_PARTNER = "http://localhost:4000/api/partner";
+   const API_URL_PARTNER = "https://knowledge-hub.anantya.ai/api/partner";
+   
+
+  // Fetch partner leads
   const fetchLeads = async () => {
     try {
-      const res = await fetch(API_URL_LEADS);
+      const res = await fetch(API_URL_PARTNER);
       if (!res.ok) throw new Error("API not responding");
       const data = await res.json();
       setLeads(data);
       setFiltered(data);
     } catch (err) {
       console.error(err);
-      setError("Failed to fetch leads");
+      setError("Failed to fetch partner leads");
     } finally {
       setLoading(false);
     }
@@ -65,7 +66,7 @@ export default function LeadsPage() {
     }
   };
 
-  // Handle new lead from ContactForm
+  // Handle new partner lead (optional: if form submission pushes new data)
   const handleNewLead = (newLead) => {
     setLeads((prev) => [newLead, ...prev]);
     setFiltered((prev) => [newLead, ...prev]);
@@ -93,13 +94,13 @@ export default function LeadsPage() {
       <Header />
       <div className="d-flex" style={{ height: "100%" }}>
         <Sidebar />
-        <main className="flex-grow-1 p-4" style={{ overflowY: "auto", height: "calc(100vh - 70px)" }}>
+        <main
+          className="flex-grow-1 p-4"
+          style={{ overflowY: "auto", height: "calc(100vh - 70px)" }}
+        >
           <div className="container mt-5 pt-4">
-            {/* Optional: show ContactForm here for direct leads */}
-            {/* <ContactForm onNewLead={handleNewLead} /> */}
-
             <div className="d-flex justify-content-between align-items-center mb-4">
-              <h3 className="fw-bold">All Leads</h3>
+              <h3 className="fw-bold">Partner Leads</h3>
               <div className="d-flex gap-2 align-items-center lead">
                 <input
                   type="date"
@@ -113,7 +114,7 @@ export default function LeadsPage() {
               </div>
             </div>
 
-            {loading && <p className="text-center py-5">Loading leads...</p>}
+            {loading && <p className="text-center py-5">Loading partner leads...</p>}
             {error && <div className="alert alert-warning">{error}</div>}
 
             {!loading && filtered.length > 0 ? (
@@ -126,9 +127,11 @@ export default function LeadsPage() {
                       <th>Email</th>
                       <th>Phone</th>
                       <th>Company</th>
-                      <th>Product</th>
                       <th>Website</th>
-                      <th>Message</th>
+                      <th>Partnership</th>
+                      <th>Customers</th>
+                      <th>Industry</th>
+                      <th>Comments</th>
                       <th>Status</th>
                       <th>Actions</th>
                       <th>Captured</th>
@@ -138,13 +141,19 @@ export default function LeadsPage() {
                     {filtered.map((lead, i) => (
                       <tr key={i}>
                         <td>{i + 1}</td>
-                        <td>{lead.name}</td>
+                        <td>{lead.Name}</td>
                         <td>{lead.email}</td>
                         <td>{lead.phone}</td>
-                        <td>{lead.organization}</td>
-                        <td>{lead.product}</td>
-                        <td><a href={lead.website} target="_blank">{lead.website}</a></td>
-                        <td>{lead.discussion}</td>
+                        <td>{lead.company}</td>
+                        <td>
+                          <a href={lead.url} target="_blank">
+                            {lead.url}
+                          </a>
+                        </td>
+                        <td>{lead.partnership}</td>
+                        <td>{lead.customers}</td>
+                        <td>{lead.industry}</td>
+                        <td>{lead.comments}</td>
                         <td>
                           <Dropdown>
                             <Dropdown.Toggle variant="" className="p-0 border-0">
@@ -189,7 +198,7 @@ export default function LeadsPage() {
                   </tbody>
                 </table>
               </div>
-            ) : (!loading && <p>No leads found.</p>)}
+            ) : (!loading && <p>No partner leads found.</p>)}
           </div>
         </main>
       </div>

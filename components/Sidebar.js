@@ -18,7 +18,7 @@ const LeadSidebar = () => {
 
     { id: "ads", label: "Ads Leads", icon: "bi-badge-ad", url: "/leads/ads" },
 
-    { id: "partner", label: "Partner Pages", icon: "bi-people-fill", url: "/leads/partner-pages" },
+    { id: "partner", label: "Partner Pages", icon: "bi-people-fill", url: "/partner" },
 
     { id: "other", label: "Other Pages", icon: "bi-grid", url: "/leads/otherpages" },
 

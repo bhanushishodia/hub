@@ -39,9 +39,6 @@ export default function KnowledgeHubLogin() {
     }
   }, []);
 
-
-
-
   // ✔️ Remember Me
   useEffect(() => {
     const savedUsername = localStorage.getItem("username");
