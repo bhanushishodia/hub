@@ -14,13 +14,13 @@ const LeadSidebar = () => {
 
     { id: "website", label: "Website Leads", icon: "bi-globe", url: "/leads/website" },
 
-    { id: "events", label: "Talk To Events", icon: "bi-calendar2-event", url: "/leads/events" },
+    { id: "events", label: "Talk To Events", icon: "bi-calendar2-event", url: "/events" },
 
-    { id: "ads", label: "Ads Leads", icon: "bi-badge-ad", url: "/leads/ads" },
+    { id: "ads", label: "Ads Leads", icon: "bi-badge-ad", url: "/ads" },
 
     { id: "partner", label: "Partner Pages", icon: "bi-people-fill", url: "/partner" },
 
-    { id: "other", label: "Other Pages", icon: "bi-grid", url: "/leads/otherpages" },
+    { id: "other", label: "Other Pages", icon: "bi-grid", url: "/otherpages" },
 
     { id: "settings", label: "Settings", icon: "bi-gear-wide-connected", url: "/settings" },
 
