@@ -29,7 +29,7 @@ const BlogSlider = () => {
   }, []);
 
   const slides = [
-   
+
     {
       img: msmeexpoImg,
       link: "https://anantya.ai/blog/msme-india-expo-2025-highlights",
@@ -42,7 +42,7 @@ const BlogSlider = () => {
       title: "Entrepreneur India 15th Edition",
       desc: "Anantya.ai participated in Entrepreneur India 2025, joining leading innovators in shaping the future of business innovation.",
     },
-     {
+    {
       img: img1,
       link: "https://anantya.ai/blog/gitex-2023-highlights-anantya-ai-ai-powered-messaging-evolution",
       title: "GITEX Global 2023",
@@ -61,7 +61,7 @@ const BlogSlider = () => {
               {slides.map((item, index) => (
                 <div className="swiper-slide" key={index}>
                   <div className="card border-0 bg-transparent rounded-0 p-0 d-block">
-                    
+
                     <a href={item.link} className="img radius-7 overflow-hidden img-cover">
                       <img src={item.img} className="card-img-top" alt={item.title} />
                     </a>
@@ -73,9 +73,9 @@ const BlogSlider = () => {
 
                       <p className="small mt-2 op-8">{item.desc}</p>
 
-                     <a href={item.link} className="read-more-link">
-  Read More <span className="arrow">→</span>
-</a>
+                      <a href={item.link} target="_blank" className="read-more-link">
+                        Read More <span className="arrow">→</span>
+                      </a>
 
                     </div>
                   </div>

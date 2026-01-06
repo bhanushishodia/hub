@@ -40,12 +40,15 @@ const HubHeader = () => {
       <img src={logo} alt="Logo" width="190" style={{ cursor: "pointer" }} />
 
       {/* Center Title */}
-      <div className="fs-5 text-white">
-      Leads Management
+      <div className="fs-5 text-dark fw-bold">
+        Leads Management System
       </div>
 
       {/* Right Icons Section */}
       <div className="d-flex align-items-center">
+        <a href="/dashboard" className="py-2 px-4 rounded-pill small  btn-success text-white">
+          Back to hub
+        </a>
 
         {/* Fullscreen Icon */}
         <div className="mx-3" style={{ cursor: "pointer" }} onClick={toggleFullscreen}>
@@ -66,7 +69,7 @@ const HubHeader = () => {
           )}
         </div>
 
-     
+
         {/* Profile Dropdown */}
         <div className="position-relative ms-3">
           <img
@@ -79,9 +82,10 @@ const HubHeader = () => {
             onClick={() => setShowLogout(!showLogout)}
           />
 
-       
+
         </div>
       </div>
+
     </header>
   );
 };

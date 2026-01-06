@@ -461,12 +461,12 @@ const handleLogout = async () => {
               {
                 id: "comprehensive",
                 icon: "bi-journal-text",
-                label: "Comprehensive<br />Resources",
+                label: "Sales<br /> Lifecycle",
               },
               {
                 id: "tailored",
                 icon: "bi-people",
-                label: "Tailored <br /> Resources",
+                label: "Tailored <br /> Use Cases",
               },
               {
                 id: "leads",

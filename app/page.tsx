@@ -200,7 +200,7 @@ export default function KnowledgeHubLogin() {
         </button>
 
 
-        <div className="small version-text mt-3 text-dark fw-semibold muted small">Version 1.0.4
+        <div className="small version-text mt-3 text-dark fw-semibold muted small">Version 1.0.5
         </div>
       </div>
     </div>

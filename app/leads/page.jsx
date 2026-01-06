@@ -192,7 +192,9 @@ export default function LeadsPage() {
               </div>
             ) : (!loading && <p>No leads found.</p>)}
           </div>
+         
         </main>
+      
       </div>
     </div>
   );
