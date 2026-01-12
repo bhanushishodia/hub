@@ -1,0 +1,59 @@
+/* app/signup/signup.css */
+.signup-bg {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+}
+
+.signup-box {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 450px;
+    border-top: 5px solid #198754;
+}
+
+.signup-input {
+    border-radius: 8px !important;
+    padding: 12px !important;
+    padding-right: 45px !important; /* Space for icon */
+    border: 1px solid #ced4da !important;
+}
+
+/* Lucide Icon Wrapper Styling */
+.password-icon-wrapper {
+    position: absolute;
+    right: 15px;
+    top: 38px;
+    cursor: pointer;
+    color: #6c757d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+}
+
+.password-icon-wrapper:hover {
+    color: #198754;
+}
+
+/* Signup Button - Full Width & Centered Text */
+.signup-btn-custom {
+    width: 100%;
+    padding: 12px 0;
+    font-size: 18px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center; /* Text horizontal center */
+    align-items: center;     /* Text vertical center */
+    background-color: #198754 !important;
+    border: none !important;
+}
+
+.signup-btn-custom:hover {
+    background-color: #157347 !important;
+}
