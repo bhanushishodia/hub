@@ -3,14 +3,28 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { getImage } from "./utils/getImage";
 import { signIn } from "next-auth/react";
+<<<<<<< HEAD
 import Link from "next/link";
 import { Eye, EyeOff } from "lucide-react";
+=======
+>>>>>>> 0a4b08817ff634f73d82985a02338ca3f6b7ae8c
 
 const logo = getImage("hub-logo.png");
 const login = getImage("login-hub.png");
 
+<<<<<<< HEAD
 export default function KnowledgeHubLogin() {
   const [username, setUsername] = useState(""); 
+=======
+// ✔️ Multiple Users with Roles
+const USERS = [
+  { email: "admin@anantya.ai", password: "Yashika@018", role: "admin" },
+  { email: "user@anantya.ai", password: "Anantya@789", role: "user" },
+];
+
+export default function KnowledgeHubLogin() {
+  const [username, setUsername] = useState("");
+>>>>>>> 0a4b08817ff634f73d82985a02338ca3f6b7ae8c
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -18,22 +32,43 @@ export default function KnowledgeHubLogin() {
 
   const router = useRouter();
 
+<<<<<<< HEAD
+=======
+  // ✔️ Bootstrap JS
+>>>>>>> 0a4b08817ff634f73d82985a02338ca3f6b7ae8c
   useEffect(() => {
     require("bootstrap/dist/js/bootstrap.bundle.min.js");
   }, []);
 
+<<<<<<< HEAD
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const error = params.get("error");
+=======
+
+  // ✔️ Google Auth Error Handling
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const error = params.get("error");
+
+>>>>>>> 0a4b08817ff634f73d82985a02338ca3f6b7ae8c
     if (error === "AccessDenied") {
       setErrorMessage("Only @anantya.ai email IDs are allowed.");
       window.history.replaceState(null, "", "/");
     }
   }, []);
 
+<<<<<<< HEAD
   useEffect(() => {
     const savedUsername = localStorage.getItem("username");
     const savedPassword = localStorage.getItem("password");
+=======
+  // ✔️ Remember Me
+  useEffect(() => {
+    const savedUsername = localStorage.getItem("username");
+    const savedPassword = localStorage.getItem("password");
+
+>>>>>>> 0a4b08817ff634f73d82985a02338ca3f6b7ae8c
     if (savedUsername && savedPassword) {
       setUsername(savedUsername);
       setPassword(savedPassword);
@@ -41,6 +76,7 @@ export default function KnowledgeHubLogin() {
     }
   }, []);
 
+<<<<<<< HEAD
   const handleLogin = async (e: any) => {
     e.preventDefault();
     setErrorMessage("");
@@ -83,6 +119,41 @@ export default function KnowledgeHubLogin() {
     }
   };
 
+=======
+  const handleLogin = (e: any) => {
+    e.preventDefault();
+
+    const matchedUser = USERS.find(
+      (u) => u.email === username && u.password === password
+    );
+
+    if (!matchedUser) {
+      setErrorMessage("Invalid username or password. Please try again.");
+      return;
+    }
+
+    if (rememberMe) {
+      localStorage.setItem("username", username);
+      localStorage.setItem("password", password);
+    } else {
+      localStorage.removeItem("username");
+      localStorage.removeItem("password");
+    }
+
+    // Set user info cookies
+    document.cookie = `user=${matchedUser.email}; path=/`;
+    document.cookie = `role=${matchedUser.role}; path=/`;
+
+    // ✅ Optional: mark local login session
+    document.cookie = `localAuth=true; path=/`;
+
+    // Redirect to dashboard
+    router.push("/dashboard");
+  };
+
+
+  // Icons
+>>>>>>> 0a4b08817ff634f73d82985a02338ca3f6b7ae8c
   const EyeIcon = (
     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2">
       <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"></path>
@@ -100,6 +171,10 @@ export default function KnowledgeHubLogin() {
 
   return (
     <div className="container-fluid vh-100 d-flex flex-column flex-md-row p-0">
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0a4b08817ff634f73d82985a02338ca3f6b7ae8c
       {/* Left Section */}
       <div className="col-12 col-md-7 d-flex flex-column justify-content-center align-items-start p-4 p-md-5">
         <div className="text-start">
@@ -109,12 +184,17 @@ export default function KnowledgeHubLogin() {
             <strong>Support and Engagement</strong>
           </p>
         </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0a4b08817ff634f73d82985a02338ca3f6b7ae8c
         <img src={login} alt="Anantya Login" className="img-fluid" />
       </div>
 
       {/* Right Section */}
       <div className="col-12 col-md-5 bg-light d-flex flex-column justify-content-center align-items-center p-4 p-md-5">
         <img src={logo} alt="Anantya Logo" width="200" />
+<<<<<<< HEAD
         <h4 className="fw-semibold mb-3 text-center">Explore the Knowledge Hub</h4>
 
         <form onSubmit={handleLogin} className="p-4 rounded w-100" style={{ maxWidth: "400px" }}>
@@ -124,12 +204,28 @@ export default function KnowledgeHubLogin() {
               type="text"
               className="form-control"
               placeholder="Enter your username or email"
+=======
+        <h4 className="fw-semibold mb-3 text-center">
+          Explore the Knowledge Hub
+        </h4>
+
+        <form onSubmit={handleLogin} className="p-4 rounded w-100" style={{ maxWidth: "400px" }}>
+
+
+          <div className="mb-3">
+            <label className="form-label">User Name</label>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Enter your username"
+>>>>>>> 0a4b08817ff634f73d82985a02338ca3f6b7ae8c
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               autoComplete="username"
             />
           </div>
 
+<<<<<<< HEAD
                       <div className="mb-3">
               <label className="form-label small fw-semibold">Password</label>
               <div className="input-group">
@@ -188,10 +284,60 @@ export default function KnowledgeHubLogin() {
         </form>
 
         <div className="divider-container w-100" style={{ maxWidth: "400px" }}>
+=======
+          <div className="mb-3">
+            <label className="form-label">Password</label>
+            <div className="input-group">
+              <input
+                type={showPassword ? "text" : "password"}
+                className="form-control"
+                placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                autoComplete="current-password"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword((s) => !s)}
+                className="btn btn-outline-secondary"
+              >
+                {showPassword ? EyeSlashIcon : EyeIcon}
+              </button>
+            </div>
+          </div>
+
+          <div className="form-check mb-3">
+            <input
+              type="checkbox"
+              className="form-check-input"
+              id="rememberMe"
+              checked={rememberMe}
+              onChange={(e) => setRememberMe(e.target.checked)}
+            />
+            <label className="form-check-label small" htmlFor="rememberMe">
+              Remember me
+            </label>
+          </div>
+
+          {errorMessage && (
+            <div className="alert alert-danger small py-2 mb-3 text-center">
+              {errorMessage}
+            </div>
+          )}
+
+          <button type="submit" className="btn btn-success w-100 d-block mx-auto fw-semibold">
+            Login
+          </button>
+
+        </form>
+
+        <div className="divider-container">
+>>>>>>> 0a4b08817ff634f73d82985a02338ca3f6b7ae8c
           <div className="divider-line"></div>
           <div className="divider-text">Or continue </div>
           <div className="divider-line"></div>
         </div>
+<<<<<<< HEAD
         
         <button
           className="btn btn-google mt-3 w-100"
@@ -213,3 +359,23 @@ export default function KnowledgeHubLogin() {
     </div>
   );
 }
+=======
+        <button
+          className="btn btn-google mt-3"
+          onClick={() =>
+            signIn("google", {
+              callbackUrl: "/dashboard",
+            })
+          }
+        ><svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width={15} className="LgbsSe-Bz112c"><g><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path><path fill="none" d="M0 0h48v48H0z"></path></g></svg>
+          &nbsp; Sign in with Google
+        </button>
+
+
+        <div className="small version-text mt-3 text-dark fw-semibold muted small">Version 1.0.5
+        </div>
+      </div>
+    </div>
+  );
+} 
+>>>>>>> 0a4b08817ff634f73d82985a02338ca3f6b7ae8c

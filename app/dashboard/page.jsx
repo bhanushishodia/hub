@@ -156,6 +156,7 @@ export default function KnowledgeHubDashboard() {
   const fullRef = useRef(null);
 
   const [activeTab, setActiveTab] = useState("home");
+<<<<<<< HEAD
   const [userRole, setUserRole] = useState("");
 
   useEffect(() => {
@@ -163,6 +164,8 @@ export default function KnowledgeHubDashboard() {
     const savedRole = localStorage.getItem("role") || "user";
     setUserRole(savedRole);
   }, []);
+=======
+>>>>>>> 0a4b08817ff634f73d82985a02338ca3f6b7ae8c
   const [isPlaying, setIsPlaying] = useState(false); // State to control video playback
   const [searchValue, setSearchValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
@@ -475,6 +478,7 @@ const handleLogout = async () => {
                 icon: "bi-people",
                 label: "Tailored <br /> Use Cases",
               },
+<<<<<<< HEAD
 
               // 🛡️ YAHAN CONDITION LAGAYEIN (Purane leads ko delete karke ye likhein)
               ...(userRole === "admin" ? [{
@@ -484,6 +488,14 @@ const handleLogout = async () => {
                 url: "/leads", 
               }] : []),
 
+=======
+              {
+                id: "leads",
+                icon: "bi-person-lines-fill",
+                label: "Leads <br /> Management",
+                url: "/leads", // ⭐ ONLY LEADS HAS URL
+              },
+>>>>>>> 0a4b08817ff634f73d82985a02338ca3f6b7ae8c
               {
                 id: "operations",
                 icon: "bi-gear",
@@ -499,17 +511,30 @@ const handleLogout = async () => {
             ].map((item) => (
               <li
                 key={item.id}
+<<<<<<< HEAD
                 className={`nav-item px-3 d-flex flex-column align-items-center sidebar-item ${
                   activeTab === item.id ? "active-sidebar" : ""
                 }`}
                 onClick={() => {
                   setActiveTab(item.id);
+=======
+                className={`nav-item px-3 d-flex flex-column align-items-center sidebar-item ${activeTab === item.id ? "active-sidebar" : ""
+                  }`}
+                onClick={() => {
+                  setActiveTab(item.id);
+
+                  // ⭐ Navigate ONLY IF URL EXISTS (means only for leads)
+>>>>>>> 0a4b08817ff634f73d82985a02338ca3f6b7ae8c
                   if (item.url) {
                     router.push(item.url);
                   }
                 }}
               >
                 <i className={`bi ${item.icon} fs-4 mb-0`}></i>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0a4b08817ff634f73d82985a02338ca3f6b7ae8c
                 <small
                   className="text-white"
                   style={{ marginTop: "0px" }}
