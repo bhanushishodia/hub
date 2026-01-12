@@ -1,4 +1,4 @@
-import { db } from "@/app/utils/db";
+import  db  from "@/app/utils/db";
 import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
 

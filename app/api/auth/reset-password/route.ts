@@ -1,4 +1,4 @@
-import { db } from "@/app/utils/db";
+import  db  from "@/app/utils/db";
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 
@@ -32,7 +32,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ message: "Password updated successfully! Redirecting to login..." });
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("RESET_ERROR:", error);
     return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
   }

@@ -1,4 +1,4 @@
-import { db } from "@/app/utils/db";
+import  db  from "@/app/utils/db";
 import bcrypt from "bcryptjs";
 import nodemailer from "nodemailer";
 import { NextResponse } from "next/server";
@@ -30,7 +30,7 @@ export async function POST(req) {
       service: "gmail",
       auth: {
         user: "info@anantya.ai", // your company email
-        pass: "mwwn pgfn azze otcw",     // Google App password created in step 2
+        pass: "ejbf zkyk ilmj zpqw",     // Google App password created in step 2
       },
     });
 

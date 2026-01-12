@@ -3,11 +3,9 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { getImage } from "./utils/getImage";
 import { signIn } from "next-auth/react";
-<<<<<<< HEAD
+ 
 import Link from "next/link";
 import { Eye, EyeOff } from "lucide-react";
-=======
->>>>>>> 0a4b08817ff634f73d82985a02338ca3f6b7ae8c
 
 const logo = getImage("hub-logo.png");
 const login = getImage("login-hub.png");

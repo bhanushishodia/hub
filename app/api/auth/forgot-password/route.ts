@@ -1,4 +1,4 @@
-import { db } from "@/app/utils/db";
+import  db  from "@/app/utils/db";
 import nodemailer from "nodemailer";
 import { NextResponse } from "next/server";
 import crypto from "crypto"; 
@@ -62,9 +62,9 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ message: "Reset link sent successfully to your email!" });
 
-  } catch (error: any) {
-    // Log the actual error to the server terminal for debugging
-    console.error("MAILING ERROR:", error); 
-    return NextResponse.json({ message: "System error: " + error.message }, { status: 500 });
-  }
+  } catch (error: unknown) {
+  const errorMessage = error instanceof Error ? error.message : "Internal Server Error";
+  console.error("ERROR:", error);
+  return NextResponse.json({ message: errorMessage }, { status: 500 });
+}
 }
