@@ -47,7 +47,7 @@ export async function POST(req) {
           <li><strong>Password:</strong> ${password} (As chosen by you)</li>
         </ul>
         <br>
-        <p>Login here: <a href="http://localhost:3000">Anantya Hub</a></p>
+        <p>Login here: <a href="https://knowledge-hub.anantya.ai/">Anantya Hub</a></p>
       `,
     };
 
