@@ -181,22 +181,24 @@ export default function KnowledgeHubDashboard() {
   const hasLocalAuth =
     typeof document !== "undefined" &&
     document.cookie.includes("localAuth=true");
+// ✅ Bootstrap fix
   useEffect(() => {
     import("bootstrap/dist/js/bootstrap.bundle.min.js");
   }, []);
 
-useEffect(() => {
-  // ✅ Allow if either Google session OR local login exists
-  if (status === "unauthenticated" && !hasLocalAuth) {
-    router.push("/");
-  }
-}, [status, hasLocalAuth, router]);
+  // ✅ Unified Auth Protection (Google + Manual)
+  useEffect(() => {
+    if (status === "loading") return; 
 
-// ✅ Stop rendering until auth decision
-if (status === "loading") return null;
+    
+    if (!session && !hasLocalAuth) {
+      router.push("/");
+    }
+  }, [status, session, hasLocalAuth, router]);
 
-// ✅ Block page completely if not authenticated
-if (status === "unauthenticated" && !hasLocalAuth) return null;
+  // ✅ Render Guard: Screen tab tak white rahe jab tak verify na ho jaye
+  if (status === "loading") return null;
+  if (!session && !hasLocalAuth) return null;
 
 
 
