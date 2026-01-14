@@ -180,12 +180,14 @@ export default function KnowledgeHubDashboard() {
 
   // 3. Unified Auth Protection & Redirect Logic
   useEffect(() => {
-    // ⚠️ Important: Jab tak loading hai, kuch mat karo
+    // 1. Agar abhi loading ho rahi hai, toh kuch mat karo
     if (status === "loading") return;
 
-    // ✅ Agar na session hai AUR na localAuth cookie hai, tabhi bahar bhejo
-    if (!session && !hasLocalAuth) {
-      console.log("No session or localAuth found, redirecting...");
+    if (session || hasLocalAuth) {
+      // Access Granted - Yahan user dashboard dekh sakta hai
+      console.log("Logged in successfully");
+    } else {
+      // 3. Agar dono nahi hain, tabhi login page par redirect karo
       router.push("/");
     }
   }, [status, session, hasLocalAuth, router]);
@@ -199,7 +201,30 @@ export default function KnowledgeHubDashboard() {
   if (!session && !hasLocalAuth) return null;
 
 
+// ✅ 3. Unified Auth Protection (Sirf ek baar loading aur render guard rakhein)
+  useEffect(() => {
+     // Agar session hai (Google) ya cookie hai (Manual), toh ALLOW
+    if (session || hasLocalAuth) {
+      console.log("Access Granted");
+    } else {
+      // Agar dono nahi hain, tabhi bahar bhejo
+      router.push("/");
+    }
+  }, [status, session, hasLocalAuth, router]);
 
+  // ✅ 4. Render Guard (Sirf EK BAAR likhein)
+  if (status === "loading") {
+    return (
+      <div style={{height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', background: '#f8f9fa'}}>
+        <div className="text-center">
+          <div className="spinner-border text-success mb-2"></div>
+          <p className="fw-bold">Verifying Access...</p>
+        </div>
+      </div>
+    );
+  }
+  
+  if (!session && !hasLocalAuth) return null;
   //  loader only for google auth
 
   //  loader only for google auth

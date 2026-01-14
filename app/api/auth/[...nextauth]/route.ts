@@ -32,11 +32,12 @@ const handler = NextAuth({
       return session;
     },
 
-    async redirect() {
+    async redirect({ url, baseUrl }) {
       // ✅ ALWAYS dashboard
       return "/dashboard";
     },
   },
+  secret: process.env.NEXTAUTH_SECRET,
 });
 
 export { handler as GET, handler as POST };
