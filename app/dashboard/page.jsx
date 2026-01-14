@@ -158,11 +158,20 @@ export default function KnowledgeHubDashboard() {
   const [activeTab, setActiveTab] = useState("home");
   const [userRole, setUserRole] = useState("");
 
-  useEffect(() => {
-    // LocalStorage se role nikalna
-    const savedRole = localStorage.getItem("role") || "user";
-    setUserRole(savedRole);
-  }, []);
+ useEffect(() => {
+    if (session?.user) {
+      // ✅ Check if the logged-in email is the admin email
+      if (session.user.email === "yashika@anantya.ai") {
+        setUserRole("admin");
+      } else {
+        setUserRole(session.user.role || "user");
+      }
+    } else {
+      // Manual login ke liye
+      const savedRole = localStorage.getItem("role") || "user";
+      setUserRole(savedRole);
+    }
+  }, [session]);
   const [isPlaying, setIsPlaying] = useState(false); // State to control video playback
   const [searchValue, setSearchValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);

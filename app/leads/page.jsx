@@ -4,20 +4,21 @@ import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
 import { Dropdown } from "react-bootstrap";
 import { FaEllipsisV } from "react-icons/fa";
-import { useRouter } from "next/navigation"; // Import router for redirection
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react"; // ✅ Import useSession
 
 export default function LeadsPage() {
   const router = useRouter();
+  const { data: session, status } = useSession(); // ✅ Get Google Session
   const [leads, setLeads] = useState([]);
   const [filtered, setFiltered] = useState([]);
   const [filterDate, setFilterDate] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [isAdmin, setIsAdmin] = useState(false); // State to track admin status
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const API_URL_LEADS = "https://hub-backend-tv3v.onrender.com/api/leads";
   
-  // Function to fetch all leads from the backend
   const fetchLeads = async () => {
     try {
       const res = await fetch(API_URL_LEADS);
@@ -34,20 +35,26 @@ export default function LeadsPage() {
   };
 
   useEffect(() => {
-    // 🛡️ SECURITY CHECK: Get user role from localStorage
-    const userRole = localStorage.getItem("role");
+    // 1. Wait until session is loading
+    if (status === "loading") return;
 
-    if (userRole !== "admin") {
-      // Redirect non-admin users back to dashboard immediately
+    // 2. Check Role from both sources
+    const localRole = localStorage.getItem("role"); // Manual Login
+    const userEmail = session?.user?.email;        // Google Login
+
+    // 🛡️ Admin Verification Logic
+    const isActuallyAdmin = localRole === "admin" || userEmail === "yashika@anantya.ai";
+
+    if (!isActuallyAdmin) {
+      // If not admin, redirect to dashboard
       router.push("/dashboard");
     } else {
-      // If user is admin, allow page access and fetch data
+      // If admin, allow access and fetch data
       setIsAdmin(true);
       fetchLeads();
     }
-  }, [router]);
+  }, [status, session, router]); // ✅ Added status & session as dependencies
 
-  // Filter the leads list based on selected date
   const handleFilter = () => {
     if (!filterDate) return setFiltered(leads);
     setFiltered(
@@ -57,7 +64,6 @@ export default function LeadsPage() {
     );
   };
 
-  // Update lead status (e.g., from 'New' to 'Converted')
   const handleStatusChange = async (id, newStatus) => {
     try {
       const res = await fetch(`${API_URL_LEADS}/${id}`, {
@@ -78,14 +84,11 @@ export default function LeadsPage() {
     }
   };
 
-  // Utility to send email via client's default mail app
   const handleSendEmail = (email) => (window.location.href = `mailto:${email}`);
 
-  // Utility to open WhatsApp chat with lead
   const handleSendWhatsApp = (phone) =>
     window.open(`https://wa.me/91${phone}`, "_blank");
 
-  // Delete lead from the database
   const handleDelete = async (id) => {
     if (confirm("Are you sure you want to delete this lead?")) {
       try {
@@ -101,8 +104,8 @@ export default function LeadsPage() {
     }
   };
 
-  // Prevent rendering if user is not authorized
-  if (!isAdmin) return null;
+  // ✅ Show loading state or nothing while checking admin status
+  if (status === "loading" || !isAdmin) return null;
 
   return (
     <div className="d-flex flex-column" style={{ height: "100vh" }}>
@@ -112,7 +115,6 @@ export default function LeadsPage() {
         <main className="flex-grow-1 p-4" style={{ overflowY: "auto", height: "calc(100vh - 70px)" }}>
           <div className="container mt-5 pt-4">
             
-            {/* Page Title and Date Filter Section */}
             <div className="d-flex justify-content-between align-items-center mb-4">
               <h3 className="fw-bold">All Leads</h3>
               <div className="d-flex gap-2 align-items-center lead">
@@ -128,11 +130,9 @@ export default function LeadsPage() {
               </div>
             </div>
 
-            {/* Error and Loading Handlers */}
             {loading && <p className="text-center py-5">Loading leads...</p>}
             {error && <div className="alert alert-warning">{error}</div>}
 
-            {/* Leads Table Content */}
             {!loading && filtered.length > 0 ? (
               <div className="table-responsive shadow-sm bg-white rounded p-3">
                 <table className="table table-striped table-bordered">
@@ -167,7 +167,6 @@ export default function LeadsPage() {
                         </td>
                         <td>{lead.discussion}</td>
                         <td>
-                          {/* Status Dropdown Picker */}
                           <Dropdown>
                             <Dropdown.Toggle variant="" className="p-0 border-0">
                               <span
@@ -194,9 +193,8 @@ export default function LeadsPage() {
                           </Dropdown>
                         </td>
                         <td>
-                          {/* Action Options Dropdown */}
                           <Dropdown>
-                            <Dropdown.Toggle variant="light" className="p-0 border-0">
+                            <Dropdown.Toggle variant="light" className="p-0 border-0 shadow-none">
                               <FaEllipsisV />
                             </Dropdown.Toggle>
                             <Dropdown.Menu>

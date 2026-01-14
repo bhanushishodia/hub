@@ -20,7 +20,7 @@ const handler = NextAuth({
 
     async jwt({ token, user }) {
       if (user?.email) {
-        token.role = user.email === "admin@anantya.ai" ? "admin" : "user";
+        token.role = user.email === "yashika@anantya.ai" ? "admin" : "user";
       }
       return token;
     },
