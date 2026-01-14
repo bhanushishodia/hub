@@ -158,46 +158,44 @@ export default function KnowledgeHubDashboard() {
   const [activeTab, setActiveTab] = useState("home");
   const [userRole, setUserRole] = useState("");
 
- useEffect(() => {
+  const hasLocalAuth = typeof document !== "undefined" && document.cookie.includes("localAuth=true");
+ // 1. Role Management (Google + Manual)
+  useEffect(() => {
     if (session?.user) {
-      // ✅ Check if the logged-in email is the admin email
       if (session.user.email === "yashika@anantya.ai") {
         setUserRole("admin");
       } else {
         setUserRole(session.user.role || "user");
       }
-    } else {
-      // Manual login ke liye
+    } else if (hasLocalAuth) {
       const savedRole = localStorage.getItem("role") || "user";
       setUserRole(savedRole);
     }
-  }, [session]);
-  const [isPlaying, setIsPlaying] = useState(false); // State to control video playback
-  const [searchValue, setSearchValue] = useState("");
-  const [suggestions, setSuggestions] = useState([]);
+  }, [session, hasLocalAuth]);
 
-
-  // ✅ check local login cookie
-  const hasLocalAuth =
-    typeof document !== "undefined" &&
-    document.cookie.includes("localAuth=true");
-// ✅ Bootstrap fix
+  // 2. Bootstrap fix
   useEffect(() => {
     import("bootstrap/dist/js/bootstrap.bundle.min.js");
   }, []);
 
-  // ✅ Unified Auth Protection (Google + Manual)
+  // 3. Unified Auth Protection & Redirect Logic
   useEffect(() => {
-    if (status === "loading") return; 
+    // ⚠️ Important: Jab tak loading hai, kuch mat karo
+    if (status === "loading") return;
 
-    
+    // ✅ Agar na session hai AUR na localAuth cookie hai, tabhi bahar bhejo
     if (!session && !hasLocalAuth) {
+      console.log("No session or localAuth found, redirecting...");
       router.push("/");
     }
   }, [status, session, hasLocalAuth, router]);
 
-  // ✅ Render Guard: Screen tab tak white rahe jab tak verify na ho jaye
-  if (status === "loading") return null;
+  // 4. Render Guard
+  // Jab tak verify na ho jaye, dashboard mat dikhao (loop se bachne ke liye)
+  if (status === "loading") {
+    return <div style={{height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>Loading Hub...</div>;
+  }
+  
   if (!session && !hasLocalAuth) return null;
 
 
