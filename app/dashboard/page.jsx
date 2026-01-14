@@ -158,73 +158,39 @@ export default function KnowledgeHubDashboard() {
   const [activeTab, setActiveTab] = useState("home");
   const [userRole, setUserRole] = useState("");
 
-  const hasLocalAuth = typeof document !== "undefined" && document.cookie.includes("localAuth=true");
- // 1. Role Management (Google + Manual)
   useEffect(() => {
-    if (session?.user) {
-      if (session.user.email === "yashika@anantya.ai") {
-        setUserRole("admin");
-      } else {
-        setUserRole(session.user.role || "user");
-      }
-    } else if (hasLocalAuth) {
-      const savedRole = localStorage.getItem("role") || "user";
-      setUserRole(savedRole);
-    }
-  }, [session, hasLocalAuth]);
+    // LocalStorage se role nikalna
+    const savedRole = localStorage.getItem("role") || "user";
+    setUserRole(savedRole);
+  }, []);
+  const [isPlaying, setIsPlaying] = useState(false); // State to control video playback
+  const [searchValue, setSearchValue] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
 
-  // 2. Bootstrap fix
+
+  // ✅ check local login cookie
+  const hasLocalAuth =
+    typeof document !== "undefined" &&
+    document.cookie.includes("localAuth=true");
   useEffect(() => {
     import("bootstrap/dist/js/bootstrap.bundle.min.js");
   }, []);
 
-  // 3. Unified Auth Protection & Redirect Logic
-  useEffect(() => {
-    // 1. Agar abhi loading ho rahi hai, toh kuch mat karo
-    if (status === "loading") return;
-
-    if (session || hasLocalAuth) {
-      // Access Granted - Yahan user dashboard dekh sakta hai
-      console.log("Logged in successfully");
-    } else {
-      // 3. Agar dono nahi hain, tabhi login page par redirect karo
-      router.push("/");
-    }
-  }, [status, session, hasLocalAuth, router]);
-
-  // 4. Render Guard
-  // Jab tak verify na ho jaye, dashboard mat dikhao (loop se bachne ke liye)
-  if (status === "loading") {
-    return <div style={{height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>Loading Hub...</div>;
+useEffect(() => {
+  // ✅ Allow if either Google session OR local login exists
+  if (status === "unauthenticated" && !hasLocalAuth) {
+    router.push("/");
   }
-  
-  if (!session && !hasLocalAuth) return null;
+}, [status, hasLocalAuth, router]);
+
+// ✅ Stop rendering until auth decision
+if (status === "loading") return null;
+
+// ✅ Block page completely if not authenticated
+if (status === "unauthenticated" && !hasLocalAuth) return null;
 
 
-// ✅ 3. Unified Auth Protection (Sirf ek baar loading aur render guard rakhein)
-  useEffect(() => {
-     // Agar session hai (Google) ya cookie hai (Manual), toh ALLOW
-    if (session || hasLocalAuth) {
-      console.log("Access Granted");
-    } else {
-      // Agar dono nahi hain, tabhi bahar bhejo
-      router.push("/");
-    }
-  }, [status, session, hasLocalAuth, router]);
 
-  // ✅ 4. Render Guard (Sirf EK BAAR likhein)
-  if (status === "loading") {
-    return (
-      <div style={{height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', background: '#f8f9fa'}}>
-        <div className="text-center">
-          <div className="spinner-border text-success mb-2"></div>
-          <p className="fw-bold">Verifying Access...</p>
-        </div>
-      </div>
-    );
-  }
-  
-  if (!session && !hasLocalAuth) return null;
   //  loader only for google auth
 
   //  loader only for google auth
