@@ -8,7 +8,7 @@ import Link from "next/link";
 import { Eye, EyeOff } from "lucide-react";
 
 const logo = getImage("hub-logo.png");
-const login = getImage("login-hub.png");
+const login = getImage("hub-login.png");
 
 export default function KnowledgeHubLogin() {
   const [username, setUsername] = useState(""); 
