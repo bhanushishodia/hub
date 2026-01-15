@@ -190,7 +190,7 @@ export default function KnowledgeHubLogin() {
 
         <div className="divider-container w-100" style={{ maxWidth: "400px" }}>
           <div className="divider-line"></div>
-          <div className="divider-text">Or continue </div>
+          <div className="divider-text"> Version 1.0 </div>
           <div className="divider-line"></div>
         </div>
 
