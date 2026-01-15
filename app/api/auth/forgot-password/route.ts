@@ -24,7 +24,8 @@ export async function POST(req: Request) {
     );
 
     // Create the absolute reset URL
-    const resetLink = `http://localhost:3000/reset-password?token=${token}`;
+   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://knowledge-hub.anantya.ai";
+    const resetUrl = `${baseUrl}/reset-password?token=${token}`;
 
     // 3. Configure Nodemailer Transporter
     const transporter = nodemailer.createTransport({
@@ -33,14 +34,15 @@ export async function POST(req: Request) {
       port: 465,
       secure: true,
       auth: { 
-        user: "info@anantya.ai", // 👈 Enter your Gmail ID here
-        pass: "ejbf zkyk ilmj zpqw" // 👈 Enter your 16-digit Google App Password here
+        user: process.env.EMAIL_USER, 
+        pass: process.env.EMAIL_PASS, // 👈 Enter your Gmail ID here
+        // 👈 Enter your 16-digit Google App Password here
       },
     });
 
     // 4. Send the Email with English content
     await transporter.sendMail({
-      from: '"Anantya Support" <your-email@gmail.com>',
+      from: `"Anantya Support" <${process.env.EMAIL_USER}>`,
       to: email,
       subject: "Password Reset Request",
       html: `
@@ -49,7 +51,7 @@ export async function POST(req: Request) {
           <p>Hello,</p>
           <p>We received a request to reset your password. You can reset it by clicking the button below:</p>
           <div style="margin: 25px 0;">
-            <a href="${resetLink}" style="background-color: #28a745; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold;">
+            <a href="${resetUrl}" style="background-color: #28a745; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold;">
               Reset My Password
             </a>
           </div>
