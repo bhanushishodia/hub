@@ -154,51 +154,62 @@ export default function KnowledgeHubDashboard() {
   const { data: session, status } = useSession();
   const [isFullscreen, setIsFullscreen] = useState(false);
   const fullRef = useRef(null);
+// ✅ YE SAHI CODE PASTE KARO ✅
 
   const [activeTab, setActiveTab] = useState("home");
-  const [userRole, setUserRole] = useState("");
-
-  useEffect(() => {
-    // LocalStorage se role nikalna
-    const savedRole = localStorage.getItem("role") || "user";
-    setUserRole(savedRole);
-  }, []);
-  const [isPlaying, setIsPlaying] = useState(false); // State to control video playback
+  const [userRole, setUserRole] = useState("user"); // Default user rakho
+  const [isPlaying, setIsPlaying] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
 
+  // 1. Local Cookie Check
+  const hasLocalAuth = typeof document !== "undefined" && document.cookie.includes("localAuth=true");
 
-  // ✅ check local login cookie
-  const hasLocalAuth =
-    typeof document !== "undefined" &&
-    document.cookie.includes("localAuth=true");
+  // 2. MAIN LOGIC (Google + Manual + Admin Check)
   useEffect(() => {
+    // Bootstrap load
     import("bootstrap/dist/js/bootstrap.bundle.min.js");
-  }, []);
 
-useEffect(() => {
-  // ✅ Allow if either Google session OR local login exists
-  if (status === "unauthenticated" && !hasLocalAuth) {
-    router.push("/");
+    // Agar Google abhi load ho raha hai to RUKO, redirect mat karo
+    if (status === "loading") return;
+
+    if (session?.user) {
+      // ---> AGAR GOOGLE SE LOGIN HAI
+      console.log("Logged in via Google:", session.user.email);
+      
+      // Admin Logic Check
+      if (session.user.email === "yashika@anantya.ai") {
+        setUserRole("admin");
+      } else {
+        setUserRole("user"); // Baaki sab user
+      }
+    } 
+    else if (hasLocalAuth) {
+      // ---> AGAR MANUAL LOGIN HAI
+      const savedRole = localStorage.getItem("role") || "user";
+      setUserRole(savedRole);
+    } 
+    else {
+      // ---> AGAR KOI LOGIN NAHI HAI
+      router.push("/");
+    }
+  }, [session, status, hasLocalAuth, router]);
+
+  // 3. Loading Screen (Jab tak check ho raha hai, ye dikhao)
+  if (status === "loading") {
+    return (
+      <div style={{height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', background: '#f8f9fa'}}>
+        <div className="text-center">
+          <div className="spinner-border text-success mb-2" role="status"></div>
+          <p className="fw-bold">Verifying Access...</p>
+        </div>
+      </div>
+    );
   }
-}, [status, hasLocalAuth, router]);
 
-// ✅ Stop rendering until auth decision
-if (status === "loading") return null;
-
-// ✅ Block page completely if not authenticated
-if (status === "unauthenticated" && !hasLocalAuth) return null;
-
-
-
-  //  loader only for google auth
-
-  //  loader only for google auth
-  if (status === "loading") return null;
-
-  //  block rendering if no auth at all
+  // 4. Final Security Guard
   if (!session && !hasLocalAuth) return null;
-
+  
   // const handleLogout = () => {
   //   //  clear local auth too
   //   document.cookie = "localAuth=; Max-Age=0; path=/";
